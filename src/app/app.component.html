@@ -1,2 +1,9 @@
-
+<form (ngSubmit)='search()'>
+  {{ movie | json }}
+  <label for='movie'> Movie Name: </label>
+  <input type='text' id='movie' name='movie' [(ngModel)]='movie.name'>
+  <label for='year'> Year: </label>
+  <input type='text' id='year' name='year' [(ngModel)]='movie.year'>
+  <button> Search </button>
+</form>
 
