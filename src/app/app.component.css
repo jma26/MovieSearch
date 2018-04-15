@@ -9,14 +9,20 @@
 }
 
 .pageNumbers {
-    font-size: 15px;
+    width: 20px;
+    border: 1px solid gray;
     display: inline-block;
     color: yellow;
+    margin-left: 10px;
 }
 
 .pageNumbers:hover {
     cursor: pointer;
     color: green;
+}
+
+#pageNumbers_container {
+    text-align: center;
 }
 
 #year {

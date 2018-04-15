@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ApiService } from './services/api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -12,12 +13,12 @@ export class AppComponent implements OnInit {
   name: String;
   year: Number;
   
-  errors: any;
+  error: Boolean;
   results: any;
   pageNumbers: Number;
   pageNumberArr: Array<number> = [];
 
-  constructor(private _service: ApiService) {}
+  constructor(private _service: ApiService, private _router: Router) {}
   ngOnInit() {
     this.movie = {
       name: '',
@@ -31,12 +32,17 @@ export class AppComponent implements OnInit {
     observable.subscribe(data => {
       // Display error Messages
       if (data['Response'] === "False" || data['Error']) {
-        this.errors = data['Error'];
+        this.error = true;
+        this.results = data['Error'];
+        console.log(data);
       // Display successful response
       } else if (data['Response'] === "True") {
+        this.error = false;
         this.results = data['Search'];
         // Page numbers in bottom
         this.pageNumbers = Math.ceil(data['totalResults'] / 10);
+        // Clear pageNumberArr, initialize as empty Array
+        this.pageNumberArr = [];
         for (let i = 1; i <= this.pageNumbers; i++) {
           this.pageNumberArr.push(i);
         }
@@ -45,8 +51,24 @@ export class AppComponent implements OnInit {
     })
   }
 
-  getPageNumbers() {
-    console.log('I am clicked');
+  // Bind the dynamically generated pageNumbers with self
+  get self() {
+    return this;
+  }
+
+  getPageNumbers(pageNumber) {
+    let observable = this._service.getMoreMovies(this.movie, pageNumber);
+    observable.subscribe(data => {
+      // Display error messages
+      if (data['Response'] === 'False' || data['Error']) {
+        this.error = true;
+        this.results = data['Error'];
+      // Display successful response
+      } else if (data['Response'] === 'True') {
+        this.error = false;
+        this.results = data['Search'];
+      }
+    })
   }
 
 }

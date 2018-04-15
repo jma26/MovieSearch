@@ -10,4 +10,7 @@ export class ApiService {
     console.log(movie);
     return this._http.get(`http://www.omdbapi.com/?s=${movie.name}&page=1&y=${movie.year}&apikey=68d0156`);
   }
+  getMoreMovies(movie, pageNumber) {
+    return this._http.get(`http://www.omdbapi.com/?s=${movie.name}&page=${pageNumber}&y=${movie.year}&apikey=68d0156`);
+  }
 }
