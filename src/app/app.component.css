@@ -1,0 +1,15 @@
+#emptyImage {
+    width: 300px;
+    height: 450px;
+    background-color: gray;
+}
+
+#resultTitle, #emptyImage, form {
+    font-size: 21px;
+}
+
+#year {
+    width: 50px;
+}
+
+

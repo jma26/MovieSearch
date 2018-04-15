@@ -11,6 +11,10 @@ export class AppComponent implements OnInit {
   movie: any;
   name: String;
   year: Number;
+  
+  errors: any;
+  results: any;
+  totalResults: Number;
 
   constructor(private _service: ApiService) {}
   ngOnInit() {
@@ -24,7 +28,15 @@ export class AppComponent implements OnInit {
   search() {
     let observable = this._service.getMovies(this.movie);
     observable.subscribe(data => {
-      console.log(data);
+      // Display error Messages
+      if (data['Response'] === "False" || data['Error']) {
+        this.errors = data['Error'];
+      // Display successful response
+      } else if (data['Response'] === "True") {
+        this.results = data['Search'];
+        this.totalResults = data['totalResults'];
+        console.log(data);
+      }
     })
   }
 

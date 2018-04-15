@@ -8,6 +8,6 @@ export class ApiService {
 
   getMovies(movie) {
     console.log(movie);
-    return this._http.get(`http://www.omdbapi.com/?s=${movie.name}&y=${movie.year}&apikey=68d0156`);
+    return this._http.get(`http://www.omdbapi.com/?s=${movie.name}&page=1&y=${movie.year}&apikey=68d0156`);
   }
 }
