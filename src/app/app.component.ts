@@ -14,7 +14,8 @@ export class AppComponent implements OnInit {
   
   errors: any;
   results: any;
-  totalResults: Number;
+  pageNumbers: Number;
+  pageNumberArr: Array<number> = [];
 
   constructor(private _service: ApiService) {}
   ngOnInit() {
@@ -34,10 +35,18 @@ export class AppComponent implements OnInit {
       // Display successful response
       } else if (data['Response'] === "True") {
         this.results = data['Search'];
-        this.totalResults = data['totalResults'];
+        // Page numbers in bottom
+        this.pageNumbers = Math.ceil(data['totalResults'] / 10);
+        for (let i = 1; i <= this.pageNumbers; i++) {
+          this.pageNumberArr.push(i);
+        }
         console.log(data);
       }
     })
+  }
+
+  getPageNumbers() {
+    console.log('I am clicked');
   }
 
 }

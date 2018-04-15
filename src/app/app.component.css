@@ -8,6 +8,17 @@
     font-size: 21px;
 }
 
+.pageNumbers {
+    font-size: 15px;
+    display: inline-block;
+    color: yellow;
+}
+
+.pageNumbers:hover {
+    cursor: pointer;
+    color: green;
+}
+
 #year {
     width: 50px;
 }

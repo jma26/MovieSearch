@@ -21,8 +21,10 @@
       </ng-template>
     </div>
   </div>
-  <div class='row'>
-    {{ totalResults }}
+  <div class='row justify-content-center'>
+    <div class='col-12' *ngFor='let number of pageNumberArr'>
+      <p ng-click='getPageNumbers()' class='pageNumbers'> {{ number }} </p>
+    </div>
   </div>
 </div>
 
