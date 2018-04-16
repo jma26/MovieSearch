@@ -8,6 +8,7 @@
         <label for='year'> Year: </label>
         <input type='text' id='year' name='year' [(ngModel)]='movie.year'>
         <button> Search </button>
+        <h1 *ngIf='!error'> Search results: {{ totalResults }} </h1>
       </form>
     </div>
   </div>
@@ -16,8 +17,8 @@
   </div>
   <div class='row' *ngIf='!error'>
     <div class='col-md-3' *ngFor='let result of results'>
-      <p id='resultTitle'> {{ result.Title }} - {{ result.Year }} </p>
-      <p *ngIf='result.Poster === "N/A" else poster' id='emptyImage'> Image not available </p>
+      <p class='resultTitle'> {{ result.Title }} - {{ result.Year }} </p>
+      <p *ngIf='result.Poster === "N/A" else poster' class='emptyImage'> Image not available </p>
       <ng-template #poster>
         <img src='{{ result.Poster }}'>
       </ng-template>

@@ -15,11 +15,13 @@ export class AppComponent implements OnInit {
   
   error: Boolean;
   results: any;
+  totalResults: Number;
   pageNumbers: Number;
   pageNumberArr: Array<number> = [];
 
   constructor(private _service: ApiService, private _router: Router) {}
   ngOnInit() {
+    this.error = true;
     this.movie = {
       name: '',
       year: ''
@@ -39,6 +41,8 @@ export class AppComponent implements OnInit {
       } else if (data['Response'] === "True") {
         this.error = false;
         this.results = data['Search'];
+        // Number of results
+        this.totalResults = data['totalResults'];
         // Page numbers in bottom
         this.pageNumbers = Math.ceil(data['totalResults'] / 10);
         // Clear pageNumberArr, initialize as empty Array
