@@ -12,6 +12,7 @@ export class HomeComponent implements OnInit {
   movie: any;
   name: String;
   year: Number;
+  currentPage: Number;
   
   error: Boolean;
   results: any;
@@ -21,6 +22,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private _service: ApiService, private _router: Router) {}
   ngOnInit() {
+    this.currentPage = 1;
     this.error = true;
     this.movie = {
       name: '',
@@ -61,6 +63,7 @@ export class HomeComponent implements OnInit {
   }
 
   getPageNumbers(pageNumber) {
+    this.currentPage = pageNumber;
     let observable = this._service.getMoreMovies(this.movie, pageNumber);
     observable.subscribe(data => {
       // Display error messages
