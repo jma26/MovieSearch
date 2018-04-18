@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ApiService } from '../services/api.service';
+import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -13,6 +15,7 @@ export class HomeComponent implements OnInit {
   name: String;
   year: Number;
   currentPage: Number;
+  userEmail: String;
   
   error: Boolean;
   results: any;
@@ -20,7 +23,7 @@ export class HomeComponent implements OnInit {
   pageNumbers: Number;
   pageNumberArr: Array<number> = [];
 
-  constructor(private _service: ApiService, private _router: Router) {}
+  constructor(private _userService: UserService, private _service: ApiService, private _router: Router, private route: ActivatedRoute) {}
   ngOnInit() {
     this.currentPage = 1;
     this.error = true;
@@ -28,6 +31,10 @@ export class HomeComponent implements OnInit {
       name: '',
       year: ''
     }
+    // Retrieve Signed in user's profile
+    this.route.params.subscribe(params => {
+      this.userEmail = params['alias'];
+    })
   }
 
   // Movie search
@@ -63,6 +70,7 @@ export class HomeComponent implements OnInit {
   }
 
   getPageNumbers(pageNumber) {
+    console.log(pageNumber);
     this.currentPage = pageNumber;
     let observable = this._service.getMoreMovies(this.movie, pageNumber);
     observable.subscribe(data => {

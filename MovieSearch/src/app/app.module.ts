@@ -8,6 +8,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, FormsModule } from '@angul
 import { ApiService } from './services/api.service';
 import { LoginService } from './services/login.service';
 import { RegisterService } from './services/register.service';
+import { UserService } from './services/user.service';
 
 
 import { AppComponent } from './app.component';
@@ -17,7 +18,7 @@ import { HomeComponent } from './home/home.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginRegistrationComponent },
-  { path: 'home', component: HomeComponent }
+  { path: 'home/:alias', component: HomeComponent }
 ]
 
 
@@ -34,7 +35,7 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [ApiService, RegisterService, LoginService],
+  providers: [ApiService, RegisterService, LoginService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

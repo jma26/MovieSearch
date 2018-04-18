@@ -13,7 +13,7 @@
   </div>
   <div class='row justify-content-start' *ngIf='!error'>
     <div class='col-md-5'>
-      <h1 id='totalResults'> Search results: {{ totalResults }} </h1>
+      <h1 id='totalResults'> Search results: {{ totalResults }}</h1>
     </div>
     <div class='col-md-6'>
       <h1 id='currentPageNumber'> Page {{ currentPage }} / {{ pageNumbers }} </h1>
@@ -26,7 +26,10 @@
   </div>
   <div class='row' *ngIf='!error'>
     <div class='col-md-3' *ngFor='let result of results'>
-      <p class='resultTitle'> {{ result.Title }} - {{ result.Year }} </p>
+      <p class='resultTitle'> 
+        <i class="fas fa-star" (click)='favorite()'></i> 
+        {{ result.Title }} - {{ result.Year }} 
+      </p>
       <p *ngIf='result.Poster === "N/A" else poster' class='emptyImage'> Image not available </p>
       <ng-template #poster>
         <img src='{{ result.Poster }}'>

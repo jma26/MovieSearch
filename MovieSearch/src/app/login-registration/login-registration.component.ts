@@ -98,7 +98,8 @@ export class LoginRegistrationComponent implements OnInit {
         if (data['error'] && data['success'] === false) {
           this.errors = data['error'];
         } else if (data['profile'] && data['success'] === true) {
-          this.router.navigate(['/home']);
+          console.log(data);
+          this.router.navigate(['/home', data['profile']['alias']]);
         }
       })
     }
