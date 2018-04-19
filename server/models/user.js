@@ -8,9 +8,9 @@ const UserSchema = mongoose.Schema({
     alias: { type: String, required: [true, 'Alias is required'], unique: true },
     password: { type: String, required: [true, 'Password is required'], minlength: [5, 'Password must be at least 5 characters long']},
     favorites: [{ 
-        Title: { type: String },
+        Title: { type: String},
         Year: { type: Number },
-        imdbID: { type: String },
+        imdbID: { type: String},
         Type: { type: String },
         Poster: { type: String }
     }]

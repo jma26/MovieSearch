@@ -24,3 +24,8 @@ img {
 .resultTitle, .emptyImage, form {
     font-size: 21px;
 }
+
+.fa-trash-alt:hover {
+    cursor: pointer;
+    color: red;
+}
