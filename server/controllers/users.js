@@ -91,5 +91,18 @@ module.exports = {
                 response.json({success: true, users: result});
             }
         })
+    },
+    addFavorite: function(request, response) {
+        console.log(request.body.Title);
+        console.log('users.js @controllers addFavorite detected ', request.body);
+        User.update({"alias": request.params.alias}, {$push: {favorites: request.body}}, function(error, result) {
+            if (error) {
+                console.log(error);
+                response.json({success: false, error: error});
+            } else {
+                console.log(result);
+                response.json({success: true});
+            }
+        })
     }
 }

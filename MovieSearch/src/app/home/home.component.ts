@@ -87,4 +87,19 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  favorite(movie) {
+    console.log(movie);
+    let observable = this._userService.addFavorite(movie, this.userAlias);
+    observable.subscribe(data => {
+      // Dispaly error message
+      if (data['success'] === false) {
+        this.error = true;
+        alert(data['error']);
+      } else if (data['success'] === true) {
+        this.error = false;
+        alert('Movie added to favorites');
+      }
+    })
+  }
+
 }

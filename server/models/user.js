@@ -11,6 +11,7 @@ const UserSchema = mongoose.Schema({
         Title: { type: String },
         Year: { type: Number },
         imdbID: { type: String },
+        Type: { type: String },
         Poster: { type: String }
     }]
 });

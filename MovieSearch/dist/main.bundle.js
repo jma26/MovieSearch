@@ -206,14 +206,14 @@ exports.CommunityComponent = CommunityComponent;
 /***/ "./src/app/home/home.component.css":
 /***/ (function(module, exports) {
 
-module.exports = ".emptyImage {\r\n    width: 300px;\r\n    height: 300px;\r\n    background-color: gray;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-align: center;\r\n        -ms-flex-align: center;\r\n            align-items: center;\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\r\n}\r\n\r\nimg {\r\n    width: 300px;\r\n    height: 300px;\r\n}\r\n\r\n.resultTitle, .emptyImage, form {\r\n    font-size: 21px;\r\n}\r\n\r\n/* Page Numbers */\r\n\r\n.pageNumbers {\r\n    width: 20px;\r\n    border: 1px solid gray;\r\n    display: inline-block;\r\n    color: yellow;\r\n}\r\n\r\n.pageNumbers:hover {\r\n    cursor: pointer;\r\n    color: green;\r\n}\r\n\r\n#pageNumbers_container {\r\n    margin-top: 15px;\r\n    text-align: center;\r\n}\r\n\r\n.pageNumbers {\r\n    margin-left: 5px;\r\n    margin-right: 5px;\r\n}\r\n\r\n.pageButtons {\r\n    margin-left: 10px;\r\n    margin-right: 10px;\r\n}\r\n\r\n/* End */\r\n\r\n/* Profile Link & Community Link */\r\n\r\n#profileLink:hover, #communityLink:hover {\r\n    cursor: pointer;\r\n    color: yellow;\r\n}\r\n\r\n#profileLink, #communityLink {\r\n    font-size: 24px;\r\n}\r\n\r\n/* End */\r\n\r\n#year {\r\n    width: 50px;\r\n}\r\n\r\n\r\n"
+module.exports = ".emptyImage {\r\n    width: 300px;\r\n    height: 300px;\r\n    background-color: gray;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-align: center;\r\n        -ms-flex-align: center;\r\n            align-items: center;\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\r\n}\r\n\r\nimg {\r\n    width: 300px;\r\n    height: 300px;\r\n}\r\n\r\n.resultTitle, .emptyImage, form {\r\n    font-size: 21px;\r\n}\r\n\r\n/* Page Numbers */\r\n\r\n.pageNumbers {\r\n    width: 20px;\r\n    border: 1px solid gray;\r\n    display: inline-block;\r\n    color: yellow;\r\n}\r\n\r\n.pageNumbers:hover {\r\n    cursor: pointer;\r\n    color: green;\r\n}\r\n\r\n#pageNumbers_container {\r\n    margin-top: 15px;\r\n    text-align: center;\r\n}\r\n\r\n.pageNumbers {\r\n    margin-left: 5px;\r\n    margin-right: 5px;\r\n}\r\n\r\n.pageButtons {\r\n    margin-left: 10px;\r\n    margin-right: 10px;\r\n}\r\n\r\n/* End */\r\n\r\n/* Profile Link & Community Link */\r\n\r\n#profileLink:hover, #communityLink:hover {\r\n    cursor: pointer;\r\n    color: yellow;\r\n}\r\n\r\n#profileLink, #communityLink {\r\n    font-size: 24px;\r\n}\r\n\r\n/* End */\r\n\r\n/* Favorite Icon */\r\n\r\n.fa-star:hover {\r\n    color: red;\r\n}\r\n\r\n#year {\r\n    width: 50px;\r\n}\r\n\r\n\r\n"
 
 /***/ }),
 
 /***/ "./src/app/home/home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class='container-fluid'>\n  <div class='row'>\n    <div class='col-12'>\n      <span id='profileLink' [routerLink]=\"['/profile', userAlias]\"> My Profile </span>\n      <span id='communityLink' [routerLink]=\"['/community', userAlias]\"> My Community </span>\n    </div>\n  </div>\n  <div class='row'>\n    <div class='col-12'>\n      <form (ngSubmit)='search()'>\n        <label for='movie'> Movie Name: </label>\n        <input type='text' id='movie' name='movie' [(ngModel)]='movie.name'>\n        <label for='year'> Year: </label>\n        <input type='text' id='year' name='year' [(ngModel)]='movie.year'>\n        <button> Search </button>\n      </form>\n    </div>\n  </div>\n  <div class='row justify-content-start' *ngIf='!error'>\n    <div class='col-md-5'>\n      <h1 id='totalResults'> Search results: {{ totalResults }}</h1>\n    </div>\n    <div class='col-md-6'>\n      <h1 id='currentPageNumber'> Page {{ currentPage }} / {{ pageNumbers }} </h1>\n    </div>\n  </div>\n  <div class='row' *ngIf='error'>\n    <div class='col-12'>\n      <h1> {{ results }} </h1>\n    </div>\n  </div>\n  <div class='row' *ngIf='!error'>\n    <div class='col-md-3' *ngFor='let result of results'>\n      <p class='resultTitle'> \n        <i class=\"fas fa-star\" (click)='favorite()'></i> \n        {{ result.Title }} - {{ result.Year }} \n      </p>\n      <p *ngIf='result.Poster === \"N/A\" else poster' class='emptyImage'> Image not available </p>\n      <ng-template #poster>\n        <img src='{{ result.Poster }}'>\n      </ng-template>\n    </div>\n  </div>\n  <div class='row' *ngIf='!error'>\n    <div class='col-12' id='pageNumbers_container'>\n      <button class='pageButtons' [disabled]= 'currentPage == 1' (click)='getPageNumbers(currentPage - 1)'> PREV </button>\n      <p *ngFor='let number of pageNumberArr' (click)='self[getPageNumbers(number)]' class='pageNumbers'> {{ number }} </p>\n      <button class='pageButtons' [disabled]= 'currentPage == pageNumbers' (click)='getPageNumbers(currentPage + 1)'> NEXT </button>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class='container-fluid'>\n  <div class='row'>\n    <div class='col-12'>\n      <span id='profileLink' [routerLink]=\"['/profile', userAlias]\"> My Profile </span>\n      <span id='communityLink' [routerLink]=\"['/community', userAlias]\"> My Community </span>\n    </div>\n  </div>\n  <div class='row'>\n    <div class='col-12'>\n      <form (ngSubmit)='search()'>\n        <label for='movie'> Movie Name: </label>\n        <input type='text' id='movie' name='movie' [(ngModel)]='movie.name'>\n        <label for='year'> Year: </label>\n        <input type='text' id='year' name='year' [(ngModel)]='movie.year'>\n        <button> Search </button>\n      </form>\n    </div>\n  </div>\n  <div class='row justify-content-start' *ngIf='!error'>\n    <div class='col-md-5'>\n      <h1 id='totalResults'> Search results: {{ totalResults }}</h1>\n    </div>\n    <div class='col-md-6'>\n      <h1 id='currentPageNumber'> Page {{ currentPage }} / {{ pageNumbers }} </h1>\n    </div>\n  </div>\n  <div class='row' *ngIf='error'>\n    <div class='col-12'>\n      <h1> {{ results }} </h1>\n    </div>\n  </div>\n  <div class='row' *ngIf='!error'>\n    <div class='col-md-3' *ngFor='let result of results'>\n      <p class='resultTitle'> \n        <span (click)='favorite(result)'><i class=\"fas fa-star\"></i></span>\n        {{ result.Title }} - {{ result.Year }} \n      </p>\n      <p *ngIf='result.Poster === \"N/A\" else poster' class='emptyImage'> Image not available </p>\n      <ng-template #poster>\n        <img src='{{ result.Poster }}'>\n      </ng-template>\n    </div>\n  </div>\n  <div class='row' *ngIf='!error'>\n    <div class='col-12' id='pageNumbers_container'>\n      <button class='pageButtons' [disabled]= 'currentPage == 1' (click)='getPageNumbers(currentPage - 1)'> PREV </button>\n      <p *ngFor='let number of pageNumberArr' (click)='self[getPageNumbers(number)]' class='pageNumbers'> {{ number }} </p>\n      <button class='pageButtons' [disabled]= 'currentPage == pageNumbers' (click)='getPageNumbers(currentPage + 1)'> NEXT </button>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -308,6 +308,22 @@ var HomeComponent = /** @class */ (function () {
             else if (data['Response'] === 'True') {
                 _this.error = false;
                 _this.results = data['Search'];
+            }
+        });
+    };
+    HomeComponent.prototype.favorite = function (movie) {
+        var _this = this;
+        console.log(movie);
+        var observable = this._userService.addFavorite(movie, this.userAlias);
+        observable.subscribe(function (data) {
+            // Dispaly error message
+            if (data['success'] === false) {
+                _this.error = true;
+                alert(data['error']);
+            }
+            else if (data['success'] === true) {
+                _this.error = false;
+                alert('Movie added to favorites');
             }
         });
     };
@@ -679,6 +695,11 @@ var UserService = /** @class */ (function () {
     UserService.prototype.getUsers = function () {
         console.log('user.service hit--> getUsers()');
         return this._http.get('/users');
+    };
+    // Add Favorite
+    UserService.prototype.addFavorite = function (movie, alias) {
+        console.log('user.service hit--> addFavorite()');
+        return this._http.patch("/user/" + alias, movie);
     };
     UserService = __decorate([
         core_1.Injectable(),

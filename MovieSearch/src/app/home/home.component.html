@@ -32,7 +32,7 @@
   <div class='row' *ngIf='!error'>
     <div class='col-md-3' *ngFor='let result of results'>
       <p class='resultTitle'> 
-        <i class="fas fa-star" (click)='favorite()'></i> 
+        <span (click)='favorite(result)'><i class="fas fa-star"></i></span>
         {{ result.Title }} - {{ result.Year }} 
       </p>
       <p *ngIf='result.Poster === "N/A" else poster' class='emptyImage'> Image not available </p>

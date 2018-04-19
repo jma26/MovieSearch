@@ -56,6 +56,11 @@ img {
 }
 /* End */
 
+/* Favorite Icon */
+.fa-star:hover {
+    color: red;
+}
+
 #year {
     width: 50px;
 }

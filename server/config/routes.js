@@ -23,4 +23,9 @@ module.exports = function(app) {
         console.log('Retrieving all users, @routes.js pinging');
         Users.getUsers(request, response);
     })
+    // Updating user profile with favorited movie
+    app.patch('/user/:alias', function(request, response) {
+        console.log('Adding favorite to user profile @routes.js pinging ')
+        Users.addFavorite(request, response);
+    })
 }
