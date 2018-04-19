@@ -83,12 +83,15 @@ var forms_1 = __webpack_require__("./node_modules/@angular/forms/esm5/forms.js")
 var api_service_1 = __webpack_require__("./src/app/services/api.service.ts");
 var login_service_1 = __webpack_require__("./src/app/services/login.service.ts");
 var register_service_1 = __webpack_require__("./src/app/services/register.service.ts");
+var user_service_1 = __webpack_require__("./src/app/services/user.service.ts");
 var app_component_1 = __webpack_require__("./src/app/app.component.ts");
 var login_registration_component_1 = __webpack_require__("./src/app/login-registration/login-registration.component.ts");
 var home_component_1 = __webpack_require__("./src/app/home/home.component.ts");
+var profile_component_1 = __webpack_require__("./src/app/profile/profile.component.ts");
 var appRoutes = [
     { path: '', component: login_registration_component_1.LoginRegistrationComponent },
-    { path: 'home/:alias', component: home_component_1.HomeComponent }
+    { path: 'home/:alias', component: home_component_1.HomeComponent },
+    { path: 'profile/:alias', component: profile_component_1.ProfileComponent }
 ];
 var AppModule = /** @class */ (function () {
     function AppModule() {
@@ -98,7 +101,8 @@ var AppModule = /** @class */ (function () {
             declarations: [
                 app_component_1.AppComponent,
                 login_registration_component_1.LoginRegistrationComponent,
-                home_component_1.HomeComponent
+                home_component_1.HomeComponent,
+                profile_component_1.ProfileComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule,
@@ -107,7 +111,7 @@ var AppModule = /** @class */ (function () {
                 forms_1.ReactiveFormsModule,
                 router_1.RouterModule.forRoot(appRoutes)
             ],
-            providers: [api_service_1.ApiService, register_service_1.RegisterService, login_service_1.LoginService],
+            providers: [api_service_1.ApiService, register_service_1.RegisterService, login_service_1.LoginService, user_service_1.UserService],
             bootstrap: [app_component_1.AppComponent]
         })
     ], AppModule);
@@ -121,14 +125,14 @@ exports.AppModule = AppModule;
 /***/ "./src/app/home/home.component.css":
 /***/ (function(module, exports) {
 
-module.exports = ".emptyImage {\r\n    width: 300px;\r\n    height: 300px;\r\n    background-color: gray;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-align: center;\r\n        -ms-flex-align: center;\r\n            align-items: center;\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\r\n}\r\n\r\nimg {\r\n    width: 300px;\r\n    height: 300px;\r\n}\r\n\r\n.resultTitle, .emptyImage, form {\r\n    font-size: 21px;\r\n}\r\n\r\n/* Page Numbers */\r\n\r\n.pageNumbers {\r\n    width: 20px;\r\n    border: 1px solid gray;\r\n    display: inline-block;\r\n    color: yellow;\r\n}\r\n\r\n.pageNumbers:hover {\r\n    cursor: pointer;\r\n    color: green;\r\n}\r\n\r\n#pageNumbers_container {\r\n    margin-top: 15px;\r\n    text-align: center;\r\n}\r\n\r\n.pageNumbers {\r\n    margin-left: 5px;\r\n    margin-right: 5px;\r\n}\r\n\r\n.pageButtons {\r\n    margin-left: 10px;\r\n    margin-right: 10px;\r\n}\r\n\r\n/* End */\r\n\r\n#year {\r\n    width: 50px;\r\n}\r\n\r\n\r\n"
+module.exports = ".emptyImage {\r\n    width: 300px;\r\n    height: 300px;\r\n    background-color: gray;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-align: center;\r\n        -ms-flex-align: center;\r\n            align-items: center;\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\r\n}\r\n\r\nimg {\r\n    width: 300px;\r\n    height: 300px;\r\n}\r\n\r\n.resultTitle, .emptyImage, form {\r\n    font-size: 21px;\r\n}\r\n\r\n/* Page Numbers */\r\n\r\n.pageNumbers {\r\n    width: 20px;\r\n    border: 1px solid gray;\r\n    display: inline-block;\r\n    color: yellow;\r\n}\r\n\r\n.pageNumbers:hover {\r\n    cursor: pointer;\r\n    color: green;\r\n}\r\n\r\n#pageNumbers_container {\r\n    margin-top: 15px;\r\n    text-align: center;\r\n}\r\n\r\n.pageNumbers {\r\n    margin-left: 5px;\r\n    margin-right: 5px;\r\n}\r\n\r\n.pageButtons {\r\n    margin-left: 10px;\r\n    margin-right: 10px;\r\n}\r\n\r\n/* End */\r\n\r\n/* Profile Link */\r\n\r\n#profileLink:hover, #communityLink:hover {\r\n    cursor: pointer;\r\n    color: yellow;\r\n}\r\n\r\n#profileLink, #communityLink {\r\n    font-size: 24px;\r\n}\r\n\r\n/* End */\r\n\r\n#year {\r\n    width: 50px;\r\n}\r\n\r\n\r\n"
 
 /***/ }),
 
 /***/ "./src/app/home/home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!-- Display Results -->\n<div class='container-fluid'>\n  <div class='row'>\n    <div class='col-12'>\n      <form (ngSubmit)='search()'>\n        <label for='movie'> Movie Name: </label>\n        <input type='text' id='movie' name='movie' [(ngModel)]='movie.name'>\n        <label for='year'> Year: </label>\n        <input type='text' id='year' name='year' [(ngModel)]='movie.year'>\n        <button> Search </button>\n      </form>\n    </div>\n  </div>\n  <div class='row justify-content-start' *ngIf='!error'>\n    <div class='col-md-5'>\n      <h1 id='totalResults'> Search results: {{ totalResults }}</h1>\n    </div>\n    <div class='col-md-6'>\n      <h1 id='currentPageNumber'> Page {{ currentPage }} / {{ pageNumbers }} </h1>\n    </div>\n  </div>\n  <div class='row' *ngIf='error'>\n    <div class='col-12'>\n      <h1> {{ results }} </h1>\n    </div>\n  </div>\n  <div class='row' *ngIf='!error'>\n    <div class='col-md-3' *ngFor='let result of results'>\n      <p class='resultTitle'> \n        <i class=\"fas fa-star\" (click)='favorite()'></i> \n        {{ result.Title }} - {{ result.Year }} \n      </p>\n      <p *ngIf='result.Poster === \"N/A\" else poster' class='emptyImage'> Image not available </p>\n      <ng-template #poster>\n        <img src='{{ result.Poster }}'>\n      </ng-template>\n    </div>\n  </div>\n  <div class='row' *ngIf='!error'>\n    <div class='col-12' id='pageNumbers_container'>\n      <button class='pageButtons' [disabled]= 'currentPage == 1' (click)='getPageNumbers(currentPage - 1)'> PREV </button>\n      <p *ngFor='let number of pageNumberArr' (click)='self[getPageNumbers(number)]' class='pageNumbers'> {{ number }} </p>\n      <button class='pageButtons' [disabled]= 'currentPage == pageNumbers' (click)='getPageNumbers(currentPage + 1)'> NEXT </button>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class='container-fluid'>\n  <div class='row'>\n    <div class='col-12'>\n      <span id='profileLink' [routerLink]=\"['/profile', userAlias]\"> My Profile </span>\n      <span id='communityLink'> My Community </span>\n    </div>\n  </div>\n  <div class='row'>\n    <div class='col-12'>\n      <form (ngSubmit)='search()'>\n        <label for='movie'> Movie Name: </label>\n        <input type='text' id='movie' name='movie' [(ngModel)]='movie.name'>\n        <label for='year'> Year: </label>\n        <input type='text' id='year' name='year' [(ngModel)]='movie.year'>\n        <button> Search </button>\n      </form>\n    </div>\n  </div>\n  <div class='row justify-content-start' *ngIf='!error'>\n    <div class='col-md-5'>\n      <h1 id='totalResults'> Search results: {{ totalResults }}</h1>\n    </div>\n    <div class='col-md-6'>\n      <h1 id='currentPageNumber'> Page {{ currentPage }} / {{ pageNumbers }} </h1>\n    </div>\n  </div>\n  <div class='row' *ngIf='error'>\n    <div class='col-12'>\n      <h1> {{ results }} </h1>\n    </div>\n  </div>\n  <div class='row' *ngIf='!error'>\n    <div class='col-md-3' *ngFor='let result of results'>\n      <p class='resultTitle'> \n        <i class=\"fas fa-star\" (click)='favorite()'></i> \n        {{ result.Title }} - {{ result.Year }} \n      </p>\n      <p *ngIf='result.Poster === \"N/A\" else poster' class='emptyImage'> Image not available </p>\n      <ng-template #poster>\n        <img src='{{ result.Poster }}'>\n      </ng-template>\n    </div>\n  </div>\n  <div class='row' *ngIf='!error'>\n    <div class='col-12' id='pageNumbers_container'>\n      <button class='pageButtons' [disabled]= 'currentPage == 1' (click)='getPageNumbers(currentPage - 1)'> PREV </button>\n      <p *ngFor='let number of pageNumberArr' (click)='self[getPageNumbers(number)]' class='pageNumbers'> {{ number }} </p>\n      <button class='pageButtons' [disabled]= 'currentPage == pageNumbers' (click)='getPageNumbers(currentPage + 1)'> NEXT </button>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -148,13 +152,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var api_service_1 = __webpack_require__("./src/app/services/api.service.ts");
+var user_service_1 = __webpack_require__("./src/app/services/user.service.ts");
 var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
-var router_2 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
 var HomeComponent = /** @class */ (function () {
-    function HomeComponent(_loginService, ApiService, _router, route) {
-        if (_loginService === void 0) { _loginService = _service; }
-        this._loginService = _loginService;
-        this._router = _router;
+    function HomeComponent(_userService, _service, route) {
+        this._userService = _userService;
+        this._service = _service;
         this.route = route;
         this.pageNumberArr = [];
     }
@@ -168,12 +172,13 @@ var HomeComponent = /** @class */ (function () {
         };
         // Retrieve Signed in user's profile
         this.route.params.subscribe(function (params) {
-            _this.userEmail = params['alias'];
+            _this.userAlias = params['alias'];
         });
     };
     // Movie search
     HomeComponent.prototype.search = function () {
         var _this = this;
+        this.currentPage = 1;
         var observable = this._service.getMovies(this.movie);
         observable.subscribe(function (data) {
             // Display error Messages
@@ -231,7 +236,7 @@ var HomeComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/home/home.component.html"),
             styles: [__webpack_require__("./src/app/home/home.component.css")]
         }),
-        __metadata("design:paramtypes", [Object, Object, router_1.Router, router_2.ActivatedRoute])
+        __metadata("design:paramtypes", [user_service_1.UserService, api_service_1.ApiService, router_1.ActivatedRoute])
     ], HomeComponent);
     return HomeComponent;
 }());
@@ -329,7 +334,7 @@ var LoginRegistrationComponent = /** @class */ (function () {
                 else {
                     // Return registered user's information & navigate to home component
                     console.log(data);
-                    _this.router.navigate(['/home']);
+                    _this.router.navigate(['/home', data['alias']]);
                     console.log('Successful creation');
                 }
             });
@@ -347,7 +352,7 @@ var LoginRegistrationComponent = /** @class */ (function () {
         else {
             var observable = this._loginService.loginUser(this.userLogin.value);
             observable.subscribe(function (data) {
-                console.log('Observable data he re ', data);
+                console.log('Observable data returned ', data);
                 if (data['error'] && data['success'] === false) {
                     _this.errors = data['error'];
                 }
@@ -369,6 +374,73 @@ var LoginRegistrationComponent = /** @class */ (function () {
     return LoginRegistrationComponent;
 }());
 exports.LoginRegistrationComponent = LoginRegistrationComponent;
+
+
+/***/ }),
+
+/***/ "./src/app/profile/profile.component.css":
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/profile/profile.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<p>\n  profile works!\n</p>\n"
+
+/***/ }),
+
+/***/ "./src/app/profile/profile.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var user_service_1 = __webpack_require__("./src/app/services/user.service.ts");
+var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
+var ProfileComponent = /** @class */ (function () {
+    function ProfileComponent(_userService, route) {
+        this._userService = _userService;
+        this.route = route;
+    }
+    ProfileComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        // Retrieve Signed in user's profile
+        this.route.params.subscribe(function (params) {
+            _this.userAlias = params['alias'];
+        });
+        this.getUser(this.userAlias);
+    };
+    ProfileComponent.prototype.getUser = function (userAlias) {
+        console.log(userAlias);
+        var observable = this._userService.getUser({ alias: userAlias });
+        observable.subscribe(function (data) {
+            console.log('Observable data returned ', data);
+        });
+    };
+    ProfileComponent = __decorate([
+        core_1.Component({
+            selector: 'app-profile',
+            template: __webpack_require__("./src/app/profile/profile.component.html"),
+            styles: [__webpack_require__("./src/app/profile/profile.component.css")]
+        }),
+        __metadata("design:paramtypes", [user_service_1.UserService, router_1.ActivatedRoute])
+    ], ProfileComponent);
+    return ProfileComponent;
+}());
+exports.ProfileComponent = ProfileComponent;
 
 
 /***/ }),
@@ -480,6 +552,42 @@ var RegisterService = /** @class */ (function () {
     return RegisterService;
 }());
 exports.RegisterService = RegisterService;
+
+
+/***/ }),
+
+/***/ "./src/app/services/user.service.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var http_1 = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
+var UserService = /** @class */ (function () {
+    function UserService(_http) {
+        this._http = _http;
+    }
+    UserService.prototype.getUser = function (alias) {
+        console.log('user.service hit ', alias);
+        return this._http.get('/user/' + alias.alias);
+    };
+    UserService = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [http_1.HttpClient])
+    ], UserService);
+    return UserService;
+}());
+exports.UserService = UserService;
 
 
 /***/ }),

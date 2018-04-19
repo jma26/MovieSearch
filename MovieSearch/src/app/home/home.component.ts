@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   name: String;
   year: Number;
   currentPage: Number;
-  userEmail: String;
+  userAlias: String;
   
   error: Boolean;
   results: any;
@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
   pageNumbers: Number;
   pageNumberArr: Array<number> = [];
 
-  constructor(private _userService: UserService, private _service: ApiService, private _router: Router, private route: ActivatedRoute) {}
+  constructor(private _userService: UserService, private _service: ApiService, private route: ActivatedRoute) {}
   ngOnInit() {
     this.currentPage = 1;
     this.error = true;
@@ -33,12 +33,13 @@ export class HomeComponent implements OnInit {
     }
     // Retrieve Signed in user's profile
     this.route.params.subscribe(params => {
-      this.userEmail = params['alias'];
+      this.userAlias = params['alias'];
     })
   }
 
   // Movie search
   search() {
+    this.currentPage = 1;
     let observable = this._service.getMovies(this.movie);
     observable.subscribe(data => {
       // Display error Messages

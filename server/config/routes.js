@@ -13,4 +13,9 @@ module.exports = function(app) {
         console.log('Retrieving user for validation, @routes.js pinging');
         Users.login(request, response);
     })
+    // Retrieve user profile
+    app.get('/user/:alias', function(request, response) {
+        console.log('Retrieving user profile, @routes.js pinging');
+        Users.getUser(request, response);
+    })
 }

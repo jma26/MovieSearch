@@ -38,7 +38,7 @@ module.exports = {
         })
     },
     login: function(request, response) {
-        console.log('users.js @controllers detected ', request.body);
+        console.log('users.js @controllers login detected ', request.body);
         // Find login information from db
         User.findOne({"email": request.body.email}, function(error, result) {
             if (error) {
@@ -63,6 +63,17 @@ module.exports = {
                         }
                     })
                 }
+            }
+        })
+    },
+    getUser: function(request, response) {
+        console.log('users.js @controllers getUser detected ', request.body);
+        // Find and return user information from db
+        User.find({"alias": request.params.alias}, function(error, result) {
+            if (error) {
+                response.json(error);
+            } else {
+                response.json(result);
             }
         })
     }

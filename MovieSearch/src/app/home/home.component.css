@@ -45,6 +45,17 @@ img {
 }
 /* End */
 
+/* Profile Link */
+#profileLink:hover, #communityLink:hover {
+    cursor: pointer;
+    color: yellow;
+}
+
+#profileLink, #communityLink {
+    font-size: 24px;
+}
+/* End */
+
 #year {
     width: 50px;
 }

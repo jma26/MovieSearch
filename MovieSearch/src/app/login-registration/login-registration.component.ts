@@ -77,7 +77,7 @@ export class LoginRegistrationComponent implements OnInit {
         } else {
           // Return registered user's information & navigate to home component
           console.log(data);
-          this.router.navigate(['/home']);
+          this.router.navigate(['/home', data['alias']]);
           console.log('Successful creation');
         }
       })
@@ -94,7 +94,7 @@ export class LoginRegistrationComponent implements OnInit {
     } else {
       let observable = this._loginService.loginUser(this.userLogin.value);
       observable.subscribe(data => {
-        console.log('Observable data he re ', data);
+        console.log('Observable data returned ', data);
         if (data['error'] && data['success'] === false) {
           this.errors = data['error'];
         } else if (data['profile'] && data['success'] === true) {
