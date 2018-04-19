@@ -23,5 +23,12 @@ export class UserService {
     console.log('user.service hit--> addFavorite()');
     return this._http.patch(`/user/${alias}`, movie)
   }
+
+  // Remove Favorite
+  removeFavorite(movie) {
+    console.log(movie);
+    console.log('user.service hit--> removeFavorite()');
+    return this._http.put(`/user/${movie.alias}`, movie);
+  }
   
 }

@@ -485,7 +485,7 @@ module.exports = "#homeLink:hover, #communityLink:hover {\r\n    cursor: pointer
 /***/ "./src/app/profile/profile.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class='container-fluid'>\n  <div class='row'>\n    <div class='col-md-12'>\n      <span id='homeLink' [routerLink]=\"['/home', user.alias]\"> Home </span>\n      <span id='communityLink' [routerLink]=\"['/community', user.alias]\"> My Community </span>\n    </div>\n  </div>\n  <div class='row'>\n    <div class='col-md-12' *ngIf='profileBoolean'>\n      <h1> Hello {{ user.fullName }}! </h1> \n      <h1> Your Email: {{ user.email }} </h1>\n      <h1> Your Alias: {{ user.alias }} </h1>\n      <h1 *ngIf='favorites.length == 0'> Favorites: Empty!! </h1>\n      <h1 *ngIf='favorites.length > 0'> Favorites: </h1>\n    </div>\n  </div>\n  <div class='row'>\n    <div class='col-md-3' *ngFor='let favorite of favorites'>\n      <p class='resultTitle'> <i class=\"fas fa-trash-alt\"></i> {{ favorite.Title }} - {{ favorite.Year }} </p>\n      <p *ngIf='favorite.Poster === \"N/A\" else poster' class='emptyImage'> Image not available </p>\n      <ng-template #poster>\n        <img src='{{ favorite.Poster }}'>\n      </ng-template>\n    </div>\n  </div>\n</div>\n\n"
+module.exports = "<div class='container-fluid'>\n  <div class='row'>\n    <div class='col-md-12'>\n      <span id='homeLink' [routerLink]=\"['/home', user.alias]\"> Home </span>\n      <span id='communityLink' [routerLink]=\"['/community', user.alias]\"> My Community </span>\n    </div>\n  </div>\n  <div class='row'>\n    <div class='col-md-12' *ngIf='profileBoolean'>\n      <h1> Hello {{ user.fullName }}! </h1> \n      <h1> Your Email: {{ user.email }} </h1>\n      <h1> Your Alias: {{ user.alias }} </h1>\n      <h1 *ngIf='favorites.length == 0'> Favorites: Empty!! </h1>\n      <h1 *ngIf='favorites.length > 0'> Favorites: </h1>\n    </div>\n  </div>\n  <div class='row'>\n    <div class='col-md-3' *ngFor='let favorite of favorites'>\n      <p class='resultTitle'> <span (click)='removeFavorite(favorite)'> <i class=\"fas fa-trash-alt\"></i></span> {{ favorite.Title }} - {{ favorite.Year }} </p>\n      <p *ngIf='favorite.Poster === \"N/A\" else poster' class='emptyImage'> Image not available </p>\n      <ng-template #poster>\n        <img src='{{ favorite.Poster }}'>\n      </ng-template>\n    </div>\n  </div>\n</div>\n\n"
 
 /***/ }),
 
@@ -507,10 +507,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 var user_service_1 = __webpack_require__("./src/app/services/user.service.ts");
 var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
+var router_2 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
 var ProfileComponent = /** @class */ (function () {
-    function ProfileComponent(_userService, route) {
+    function ProfileComponent(_userService, route, router) {
         this._userService = _userService;
         this.route = route;
+        this.router = router;
     }
     ProfileComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -522,9 +524,16 @@ var ProfileComponent = /** @class */ (function () {
         });
         this.getUser(this.userAlias);
     };
+    Object.defineProperty(ProfileComponent.prototype, "self", {
+        // Bind the dynamically generated pageNumbers with self
+        get: function () {
+            return this;
+        },
+        enumerable: true,
+        configurable: true
+    });
     ProfileComponent.prototype.getUser = function (userAlias) {
         var _this = this;
-        console.log(userAlias);
         var observable = this._userService.getUser({ alias: userAlias });
         observable.subscribe(function (data) {
             if (data['success'] === false) {
@@ -538,13 +547,30 @@ var ProfileComponent = /** @class */ (function () {
             }
         });
     };
+    ProfileComponent.prototype.removeFavorite = function (movie) {
+        var _this = this;
+        console.log(movie);
+        console.log('removeFavorite is clicked');
+        var observable = this._userService.removeFavorite({ alias: this.userAlias, movie: movie });
+        observable.subscribe(function (data) {
+            if (data['success'] === false) {
+                _this.error = data['error'];
+                _this.errorBoolean = true;
+            }
+            else if (data['success'] === true && data['profile']) {
+                _this.profileBoolean = true;
+                _this.user = data['profile'];
+                _this.favorites = data['profile']['favorites'];
+            }
+        });
+    };
     ProfileComponent = __decorate([
         core_1.Component({
             selector: 'app-profile',
             template: __webpack_require__("./src/app/profile/profile.component.html"),
             styles: [__webpack_require__("./src/app/profile/profile.component.css")]
         }),
-        __metadata("design:paramtypes", [user_service_1.UserService, router_1.ActivatedRoute])
+        __metadata("design:paramtypes", [user_service_1.UserService, router_2.ActivatedRoute, router_1.Router])
     ], ProfileComponent);
     return ProfileComponent;
 }());
@@ -699,6 +725,12 @@ var UserService = /** @class */ (function () {
     UserService.prototype.addFavorite = function (movie, alias) {
         console.log('user.service hit--> addFavorite()');
         return this._http.patch("/user/" + alias, movie);
+    };
+    // Remove Favorite
+    UserService.prototype.removeFavorite = function (movie) {
+        console.log(movie);
+        console.log('user.service hit--> removeFavorite()');
+        return this._http.put("/user/" + movie.alias, movie);
     };
     UserService = __decorate([
         core_1.Injectable(),

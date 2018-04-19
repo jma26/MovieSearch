@@ -104,5 +104,24 @@ module.exports = {
                 response.json({success: true});
             }
         })
+    },
+    removeFavorite: function(request, response) {
+        console.log('users.js @controllers removeFavorite detected ', request.body);
+        User.update({"alias": request.params.alias}, {$pull: {favorites: {_id: request.body.movie._id}}}, function(error, result) {
+            if (error) {
+                console.log(error);
+                response.json({success: false, error: error });
+            } else {
+                User.findOne({"alias": request.params.alias}, function(error, profile) {
+                    if (error) {
+                        console.log(error);
+                        response.json({success: false, error: error });
+                    } else {
+                        console.log(profile);
+                        response.json({success: true, profile: profile});
+                    }
+                })
+            }
+        })
     }
 }

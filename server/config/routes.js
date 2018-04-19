@@ -28,4 +28,9 @@ module.exports = function(app) {
         console.log('Adding favorite to user profile @routes.js pinging ')
         Users.addFavorite(request, response);
     })
+    // Delete user favorites
+    app.put('/user/:alias', function(request, response) {
+        console.log('Removing favorites from user profile @routes.js pinging ');
+        Users.removeFavorite(request, response);
+    })
 }
