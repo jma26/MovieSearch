@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ViewUserComponent implements OnInit {
   user: any;
+  favorites: any;
   userAlias: String;
   errorBoolean: Boolean;
   error: String;
@@ -39,6 +40,7 @@ export class ViewUserComponent implements OnInit {
         this.errorBoolean = true;
       } else if (data['success'] === true && data['profile']) {
         this.user = data['profile'];
+        this.favorites = data['profile']['favorites'];
         this.profileBoolean = true;
         console.log(this.user);
         console.log(this.user.favorites.length)

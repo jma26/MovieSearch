@@ -5,4 +5,20 @@
       <span id='communityLink' [routerLink]="['/community', user.alias]"> My Community </span>
     </div>
   </div>
+  <div class='row'>
+    <div class='col-md-12'>
+      <h1 *ngIf='profileBoolean'> Viewing {{ user.alias }}'s profile </h1>
+      <h1 *ngIf='errorBoolean'> {{ error }} </h1>
+      <h1 *ngIf='favorites.length == 0'> {{ user.alias }}'s favorites: Empty!! </h1>
+    </div>
+  </div>
+  <div class='row' *ngIf='profileBoolean'>
+    <div class='col-md-3' *ngFor='let favorite of favorites'>
+      <p class='resultTitle'> {{ favorite.Title }} - {{ favorite.Year }} </p>
+      <p *ngIf='favorite.Poster === "N/A" else poster' class='emptyImage'> Image not available </p>
+      <ng-template #poster>
+        <img src='{{ favorite.Poster }}'>
+      </ng-template>
+    </div>
+  </div>
 </div>

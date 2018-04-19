@@ -746,14 +746,14 @@ exports.UserService = UserService;
 /***/ "./src/app/view-user/view-user.component.css":
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = "#homeLink:hover, #communityLink:hover {\r\n    color: yellow;\r\n    cursor: pointer;\r\n}\r\n\r\n#homeLink, #communityLink {\r\n    font-size: 24px;\r\n}\r\n\r\n.emptyImage {\r\n    width: 300px;\r\n    height: 300px;\r\n    background-color: gray;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-align: center;\r\n        -ms-flex-align: center;\r\n            align-items: center;\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\r\n}\r\n\r\nimg {\r\n    width: 300px;\r\n    height: 300px;\r\n}\r\n\r\n.resultTitle, .emptyImage {\r\n    font-size: 21px;\r\n}"
 
 /***/ }),
 
 /***/ "./src/app/view-user/view-user.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class='container-fluid'>\n  <div class='row'>\n    <div class='col-md-12'>\n      <span id='homeLink' [routerLink]=\"['/home', user.alias]\"> Home </span>\n      <span id='communityLink' [routerLink]=\"['/community', user.alias]\"> My Community </span>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class='container-fluid'>\n  <div class='row'>\n    <div class='col-md-12'>\n      <span id='homeLink' [routerLink]=\"['/home', user.alias]\"> Home </span>\n      <span id='communityLink' [routerLink]=\"['/community', user.alias]\"> My Community </span>\n    </div>\n  </div>\n  <div class='row'>\n    <div class='col-md-12'>\n      <h1 *ngIf='profileBoolean'> Viewing {{ user.alias }}'s profile </h1>\n      <h1 *ngIf='errorBoolean'> {{ error }} </h1>\n      <h1 *ngIf='favorites.length == 0'> {{ user.alias }}'s favorites: Empty!! </h1>\n    </div>\n  </div>\n  <div class='row' *ngIf='profileBoolean'>\n    <div class='col-md-3' *ngFor='let favorite of favorites'>\n      <p class='resultTitle'> {{ favorite.Title }} - {{ favorite.Year }} </p>\n      <p *ngIf='favorite.Poster === \"N/A\" else poster' class='emptyImage'> Image not available </p>\n      <ng-template #poster>\n        <img src='{{ favorite.Poster }}'>\n      </ng-template>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -805,6 +805,7 @@ var ViewUserComponent = /** @class */ (function () {
             }
             else if (data['success'] === true && data['profile']) {
                 _this.user = data['profile'];
+                _this.favorites = data['profile']['favorites'];
                 _this.profileBoolean = true;
                 console.log(_this.user);
                 console.log(_this.user.favorites.length);
