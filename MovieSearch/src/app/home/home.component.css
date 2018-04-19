@@ -45,7 +45,7 @@ img {
 }
 /* End */
 
-/* Profile Link */
+/* Profile Link & Community Link */
 #profileLink:hover, #communityLink:hover {
     cursor: pointer;
     color: yellow;

@@ -1,0 +1,23 @@
+<div class='container-fluid'>
+  <div class='row'>
+    <div class='col-12'>
+      <span id='homeLink' [routerLink]="['/home', userAlias]"> Home </span>
+      <span id='profileLink' [routerLink]="['/profile', userAlias]"> My Profile </span>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='col-12'>
+      <table>
+        <tr>
+          <th id='aliasHeading'> Alias </th>
+          <th> Favorites </th>
+        </tr>
+        <tr *ngFor='let user of users'>
+          <td class='tableData'> {{ user.alias }} </td>
+          <td class='tableData'> {{ user.favorites.length }} </td>
+          <td class='tableData'> <a [routerLink]="['/community', userAlias, user.alias]"> View User </a> </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

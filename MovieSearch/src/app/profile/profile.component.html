@@ -1,3 +1,17 @@
-<p>
-  profile works!
-</p>
+<div class='container-fluid'>
+  <div class='row'>
+    <div class='col-md-12'>
+      <span id='homeLink' [routerLink]="['/home', user.alias]"> Home </span>
+      <span id='communityLink' [routerLink]="['/community', user.alias]"> My Community </span>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='col-md-12' *ngIf='profileBoolean'>
+      <h1> Hello {{ user.fullName }}! </h1> 
+      <h1> Email: {{ user.email }} </h1>
+      <h1> Alias: {{ user.alias }} </h1>
+      <h1 *ngIf='user.favorites.length == 0'> Favorites: Empty!! </h1>
+      <h1 *ngIf='!user.favorites.length == 0'> Favorites: {{ user.favorites }} </h1>
+  </div>
+</div>
+

@@ -88,10 +88,12 @@ var app_component_1 = __webpack_require__("./src/app/app.component.ts");
 var login_registration_component_1 = __webpack_require__("./src/app/login-registration/login-registration.component.ts");
 var home_component_1 = __webpack_require__("./src/app/home/home.component.ts");
 var profile_component_1 = __webpack_require__("./src/app/profile/profile.component.ts");
+var community_component_1 = __webpack_require__("./src/app/community/community.component.ts");
 var appRoutes = [
     { path: '', component: login_registration_component_1.LoginRegistrationComponent },
     { path: 'home/:alias', component: home_component_1.HomeComponent },
-    { path: 'profile/:alias', component: profile_component_1.ProfileComponent }
+    { path: 'profile/:alias', component: profile_component_1.ProfileComponent },
+    { path: 'community/:alias', component: community_component_1.CommunityComponent }
 ];
 var AppModule = /** @class */ (function () {
     function AppModule() {
@@ -102,7 +104,8 @@ var AppModule = /** @class */ (function () {
                 app_component_1.AppComponent,
                 login_registration_component_1.LoginRegistrationComponent,
                 home_component_1.HomeComponent,
-                profile_component_1.ProfileComponent
+                profile_component_1.ProfileComponent,
+                community_component_1.CommunityComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule,
@@ -122,17 +125,92 @@ exports.AppModule = AppModule;
 
 /***/ }),
 
+/***/ "./src/app/community/community.component.css":
+/***/ (function(module, exports) {
+
+module.exports = "#homeLink:hover, #profileLink:hover {\r\n    cursor: pointer;\r\n    color: yellow;\r\n}\r\n\r\n#homeLink, #profileLink, th, td {\r\n    font-size: 24px;\r\n}\r\n\r\nth, td {\r\n    width: 150px;\r\n    border: 2px solid yellow;\r\n}"
+
+/***/ }),
+
+/***/ "./src/app/community/community.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class='container-fluid'>\n  <div class='row'>\n    <div class='col-12'>\n      <span id='homeLink' [routerLink]=\"['/home', userAlias]\"> Home </span>\n      <span id='profileLink' [routerLink]=\"['/profile', userAlias]\"> My Profile </span>\n    </div>\n  </div>\n  <div class='row'>\n    <div class='col-12'>\n      <table>\n        <tr>\n          <th id='aliasHeading'> Alias </th>\n          <th> Favorites </th>\n        </tr>\n        <tr *ngFor='let user of users'>\n          <td class='tableData'> {{ user.alias }} </td>\n          <td class='tableData'> {{ user.favorites.length }} </td>\n          <td class='tableData'> <a [routerLink]=\"['/community', userAlias, user.alias]\"> View User </a> </td>\n        </tr>\n      </table>\n    </div>\n  </div>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/community/community.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var user_service_1 = __webpack_require__("./src/app/services/user.service.ts");
+var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
+var CommunityComponent = /** @class */ (function () {
+    function CommunityComponent(_userService, route) {
+        this._userService = _userService;
+        this.route = route;
+    }
+    CommunityComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.errorBoolean = false;
+        this.profileBoolean = false;
+        // Retrieve Signed in user's profile
+        this.route.params.subscribe(function (params) {
+            _this.userAlias = params['alias'];
+        });
+        this.getAllUsers();
+    };
+    CommunityComponent.prototype.getAllUsers = function () {
+        var _this = this;
+        var observable = this._userService.getUsers();
+        observable.subscribe(function (data) {
+            console.log(data);
+            if (data['success'] === false) {
+                _this.error = data['error'];
+            }
+            else if (data['success'] === true && data['users']) {
+                _this.users = data['users'];
+            }
+        });
+    };
+    CommunityComponent = __decorate([
+        core_1.Component({
+            selector: 'app-community',
+            template: __webpack_require__("./src/app/community/community.component.html"),
+            styles: [__webpack_require__("./src/app/community/community.component.css")]
+        }),
+        __metadata("design:paramtypes", [user_service_1.UserService, router_1.ActivatedRoute])
+    ], CommunityComponent);
+    return CommunityComponent;
+}());
+exports.CommunityComponent = CommunityComponent;
+
+
+/***/ }),
+
 /***/ "./src/app/home/home.component.css":
 /***/ (function(module, exports) {
 
-module.exports = ".emptyImage {\r\n    width: 300px;\r\n    height: 300px;\r\n    background-color: gray;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-align: center;\r\n        -ms-flex-align: center;\r\n            align-items: center;\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\r\n}\r\n\r\nimg {\r\n    width: 300px;\r\n    height: 300px;\r\n}\r\n\r\n.resultTitle, .emptyImage, form {\r\n    font-size: 21px;\r\n}\r\n\r\n/* Page Numbers */\r\n\r\n.pageNumbers {\r\n    width: 20px;\r\n    border: 1px solid gray;\r\n    display: inline-block;\r\n    color: yellow;\r\n}\r\n\r\n.pageNumbers:hover {\r\n    cursor: pointer;\r\n    color: green;\r\n}\r\n\r\n#pageNumbers_container {\r\n    margin-top: 15px;\r\n    text-align: center;\r\n}\r\n\r\n.pageNumbers {\r\n    margin-left: 5px;\r\n    margin-right: 5px;\r\n}\r\n\r\n.pageButtons {\r\n    margin-left: 10px;\r\n    margin-right: 10px;\r\n}\r\n\r\n/* End */\r\n\r\n/* Profile Link */\r\n\r\n#profileLink:hover, #communityLink:hover {\r\n    cursor: pointer;\r\n    color: yellow;\r\n}\r\n\r\n#profileLink, #communityLink {\r\n    font-size: 24px;\r\n}\r\n\r\n/* End */\r\n\r\n#year {\r\n    width: 50px;\r\n}\r\n\r\n\r\n"
+module.exports = ".emptyImage {\r\n    width: 300px;\r\n    height: 300px;\r\n    background-color: gray;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-align: center;\r\n        -ms-flex-align: center;\r\n            align-items: center;\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\r\n}\r\n\r\nimg {\r\n    width: 300px;\r\n    height: 300px;\r\n}\r\n\r\n.resultTitle, .emptyImage, form {\r\n    font-size: 21px;\r\n}\r\n\r\n/* Page Numbers */\r\n\r\n.pageNumbers {\r\n    width: 20px;\r\n    border: 1px solid gray;\r\n    display: inline-block;\r\n    color: yellow;\r\n}\r\n\r\n.pageNumbers:hover {\r\n    cursor: pointer;\r\n    color: green;\r\n}\r\n\r\n#pageNumbers_container {\r\n    margin-top: 15px;\r\n    text-align: center;\r\n}\r\n\r\n.pageNumbers {\r\n    margin-left: 5px;\r\n    margin-right: 5px;\r\n}\r\n\r\n.pageButtons {\r\n    margin-left: 10px;\r\n    margin-right: 10px;\r\n}\r\n\r\n/* End */\r\n\r\n/* Profile Link & Community Link */\r\n\r\n#profileLink:hover, #communityLink:hover {\r\n    cursor: pointer;\r\n    color: yellow;\r\n}\r\n\r\n#profileLink, #communityLink {\r\n    font-size: 24px;\r\n}\r\n\r\n/* End */\r\n\r\n#year {\r\n    width: 50px;\r\n}\r\n\r\n\r\n"
 
 /***/ }),
 
 /***/ "./src/app/home/home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class='container-fluid'>\n  <div class='row'>\n    <div class='col-12'>\n      <span id='profileLink' [routerLink]=\"['/profile', userAlias]\"> My Profile </span>\n      <span id='communityLink'> My Community </span>\n    </div>\n  </div>\n  <div class='row'>\n    <div class='col-12'>\n      <form (ngSubmit)='search()'>\n        <label for='movie'> Movie Name: </label>\n        <input type='text' id='movie' name='movie' [(ngModel)]='movie.name'>\n        <label for='year'> Year: </label>\n        <input type='text' id='year' name='year' [(ngModel)]='movie.year'>\n        <button> Search </button>\n      </form>\n    </div>\n  </div>\n  <div class='row justify-content-start' *ngIf='!error'>\n    <div class='col-md-5'>\n      <h1 id='totalResults'> Search results: {{ totalResults }}</h1>\n    </div>\n    <div class='col-md-6'>\n      <h1 id='currentPageNumber'> Page {{ currentPage }} / {{ pageNumbers }} </h1>\n    </div>\n  </div>\n  <div class='row' *ngIf='error'>\n    <div class='col-12'>\n      <h1> {{ results }} </h1>\n    </div>\n  </div>\n  <div class='row' *ngIf='!error'>\n    <div class='col-md-3' *ngFor='let result of results'>\n      <p class='resultTitle'> \n        <i class=\"fas fa-star\" (click)='favorite()'></i> \n        {{ result.Title }} - {{ result.Year }} \n      </p>\n      <p *ngIf='result.Poster === \"N/A\" else poster' class='emptyImage'> Image not available </p>\n      <ng-template #poster>\n        <img src='{{ result.Poster }}'>\n      </ng-template>\n    </div>\n  </div>\n  <div class='row' *ngIf='!error'>\n    <div class='col-12' id='pageNumbers_container'>\n      <button class='pageButtons' [disabled]= 'currentPage == 1' (click)='getPageNumbers(currentPage - 1)'> PREV </button>\n      <p *ngFor='let number of pageNumberArr' (click)='self[getPageNumbers(number)]' class='pageNumbers'> {{ number }} </p>\n      <button class='pageButtons' [disabled]= 'currentPage == pageNumbers' (click)='getPageNumbers(currentPage + 1)'> NEXT </button>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class='container-fluid'>\n  <div class='row'>\n    <div class='col-12'>\n      <span id='profileLink' [routerLink]=\"['/profile', userAlias]\"> My Profile </span>\n      <span id='communityLink' [routerLink]=\"['/community', userAlias]\"> My Community </span>\n    </div>\n  </div>\n  <div class='row'>\n    <div class='col-12'>\n      <form (ngSubmit)='search()'>\n        <label for='movie'> Movie Name: </label>\n        <input type='text' id='movie' name='movie' [(ngModel)]='movie.name'>\n        <label for='year'> Year: </label>\n        <input type='text' id='year' name='year' [(ngModel)]='movie.year'>\n        <button> Search </button>\n      </form>\n    </div>\n  </div>\n  <div class='row justify-content-start' *ngIf='!error'>\n    <div class='col-md-5'>\n      <h1 id='totalResults'> Search results: {{ totalResults }}</h1>\n    </div>\n    <div class='col-md-6'>\n      <h1 id='currentPageNumber'> Page {{ currentPage }} / {{ pageNumbers }} </h1>\n    </div>\n  </div>\n  <div class='row' *ngIf='error'>\n    <div class='col-12'>\n      <h1> {{ results }} </h1>\n    </div>\n  </div>\n  <div class='row' *ngIf='!error'>\n    <div class='col-md-3' *ngFor='let result of results'>\n      <p class='resultTitle'> \n        <i class=\"fas fa-star\" (click)='favorite()'></i> \n        {{ result.Title }} - {{ result.Year }} \n      </p>\n      <p *ngIf='result.Poster === \"N/A\" else poster' class='emptyImage'> Image not available </p>\n      <ng-template #poster>\n        <img src='{{ result.Poster }}'>\n      </ng-template>\n    </div>\n  </div>\n  <div class='row' *ngIf='!error'>\n    <div class='col-12' id='pageNumbers_container'>\n      <button class='pageButtons' [disabled]= 'currentPage == 1' (click)='getPageNumbers(currentPage - 1)'> PREV </button>\n      <p *ngFor='let number of pageNumberArr' (click)='self[getPageNumbers(number)]' class='pageNumbers'> {{ number }} </p>\n      <button class='pageButtons' [disabled]= 'currentPage == pageNumbers' (click)='getPageNumbers(currentPage + 1)'> NEXT </button>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -381,14 +459,14 @@ exports.LoginRegistrationComponent = LoginRegistrationComponent;
 /***/ "./src/app/profile/profile.component.css":
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = "#homeLink:hover, #communityLink:hover {\r\n    cursor: pointer;\r\n    color: yellow;\r\n}\r\n\r\n#homeLink, #communityLink {\r\n    font-size: 24px;\r\n}"
 
 /***/ }),
 
 /***/ "./src/app/profile/profile.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  profile works!\n</p>\n"
+module.exports = "<div class='container-fluid'>\n  <div class='row'>\n    <div class='col-md-12'>\n      <span id='homeLink' [routerLink]=\"['/home', user.alias]\"> Home </span>\n      <span id='communityLink' [routerLink]=\"['/community', user.alias]\"> My Community </span>\n    </div>\n  </div>\n  <div class='row'>\n    <div class='col-md-12' *ngIf='profileBoolean'>\n      <h1> Hello {{ user.fullName }}! </h1> \n      <h1> Email: {{ user.email }} </h1>\n      <h1> Alias: {{ user.alias }} </h1>\n      <h1 *ngIf='user.favorites.length == 0'> Favorites: Empty!! </h1>\n      <h1 *ngIf='!user.favorites.length == 0'> Favorites: {{ user.favorites }} </h1>\n  </div>\n</div>\n\n"
 
 /***/ }),
 
@@ -417,6 +495,8 @@ var ProfileComponent = /** @class */ (function () {
     }
     ProfileComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.errorBoolean = false;
+        this.profileBoolean = false;
         // Retrieve Signed in user's profile
         this.route.params.subscribe(function (params) {
             _this.userAlias = params['alias'];
@@ -424,10 +504,20 @@ var ProfileComponent = /** @class */ (function () {
         this.getUser(this.userAlias);
     };
     ProfileComponent.prototype.getUser = function (userAlias) {
+        var _this = this;
         console.log(userAlias);
         var observable = this._userService.getUser({ alias: userAlias });
         observable.subscribe(function (data) {
-            console.log('Observable data returned ', data);
+            if (data['success'] === false) {
+                _this.error = data['error'];
+                _this.errorBoolean = true;
+            }
+            else if (data['success'] === true && data['profile']) {
+                _this.user = data['profile'];
+                _this.profileBoolean = true;
+                console.log(_this.user);
+                console.log(_this.user.favorites.length);
+            }
         });
     };
     ProfileComponent = __decorate([
@@ -577,9 +667,15 @@ var UserService = /** @class */ (function () {
     function UserService(_http) {
         this._http = _http;
     }
+    // Retrieve one user
     UserService.prototype.getUser = function (alias) {
-        console.log('user.service hit ', alias);
+        console.log('user.service hit--> getUser()', alias);
         return this._http.get('/user/' + alias.alias);
+    };
+    // Retrieve all users
+    UserService.prototype.getUsers = function () {
+        console.log('user.service hit--> getUsers()');
+        return this._http.get('/users');
     };
     UserService = __decorate([
         core_1.Injectable(),

@@ -6,8 +6,16 @@ export class UserService {
 
   constructor(private _http: HttpClient) { }
 
+  // Retrieve one user
   getUser(alias) {
-    console.log('user.service hit ', alias);
+    console.log('user.service hit--> getUser()', alias);
     return this._http.get('/user/' + alias.alias);
   }
+
+  // Retrieve all users
+  getUsers() {
+    console.log('user.service hit--> getUsers()');
+    return this._http.get('/users');
+  }
+  
 }

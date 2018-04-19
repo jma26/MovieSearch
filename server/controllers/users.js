@@ -66,14 +66,29 @@ module.exports = {
             }
         })
     },
+    // Get one user
     getUser: function(request, response) {
         console.log('users.js @controllers getUser detected ', request.body);
         // Find and return user information from db
-        User.find({"alias": request.params.alias}, function(error, result) {
+        User.findOne({"alias": request.params.alias}, function(error, result) {
             if (error) {
-                response.json(error);
+                response.json({success: false, error: error});
             } else {
-                response.json(result);
+                response.json({success: true, profile: result});
+            }
+        })
+    },
+    // Get all users
+    getUsers: function(request, response) {
+        console.log('users.js @controllers getUsers detected ');
+        // Find all and return users
+        User.find({}, function(error, result) {
+            if (error) {
+                console.log(error);
+                response.json({success: false, error: error});
+            } else {
+                console.log(result);
+                response.json({success: true, users: result});
             }
         })
     }

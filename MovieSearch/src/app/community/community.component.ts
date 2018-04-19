@@ -4,17 +4,16 @@ import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  selector: 'app-community',
+  templateUrl: './community.component.html',
+  styleUrls: ['./community.component.css']
 })
-export class ProfileComponent implements OnInit {
-  userAlias: String;
-  error: String;
+export class CommunityComponent implements OnInit {
+  users: any;
   errorBoolean: Boolean;
+  error: String;
   profileBoolean: Boolean;
-  user: any;
-
+  userAlias: String;
   constructor(private _userService: UserService, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -24,23 +23,20 @@ export class ProfileComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.userAlias = params['alias'];
     })
-    this.getUser(this.userAlias);
+    this.getAllUsers();
   }
 
-  getUser(userAlias) {
-    console.log(userAlias);
-    let observable = this._userService.getUser({alias: userAlias});
+  getAllUsers() {
+    let observable = this._userService.getUsers();
     observable.subscribe(data => {
+      console.log(data);
       if (data['success'] === false) {
         this.error = data['error'];
-        this.errorBoolean = true;
-      } else if (data['success'] === true && data['profile']) {
-        this.user = data['profile'];
-        this.profileBoolean = true;
-        console.log(this.user);
-        console.log(this.user.favorites.length)
+      } else if (data['success'] === true && data['users']) {
+        this.users = data['users']; 
       }
     })
   }
+
 
 }

@@ -1,0 +1,8 @@
+#homeLink:hover, #communityLink:hover {
+    cursor: pointer;
+    color: yellow;
+}
+
+#homeLink, #communityLink {
+    font-size: 24px;
+}

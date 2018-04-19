@@ -15,12 +15,14 @@ import { AppComponent } from './app.component';
 import { LoginRegistrationComponent } from './login-registration/login-registration.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
+import { CommunityComponent } from './community/community.component';
 
 
 const appRoutes: Routes = [
   { path: '', component: LoginRegistrationComponent },
   { path: 'home/:alias', component: HomeComponent },
-  { path: 'profile/:alias', component: ProfileComponent }
+  { path: 'profile/:alias', component: ProfileComponent },
+  { path: 'community/:alias', component: CommunityComponent }
 ]
 
 
@@ -29,7 +31,8 @@ const appRoutes: Routes = [
     AppComponent,
     LoginRegistrationComponent,
     HomeComponent,
-    ProfileComponent
+    ProfileComponent,
+    CommunityComponent
   ],
   imports: [
     BrowserModule,

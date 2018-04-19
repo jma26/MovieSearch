@@ -1,0 +1,13 @@
+#homeLink:hover, #profileLink:hover {
+    cursor: pointer;
+    color: yellow;
+}
+
+#homeLink, #profileLink, th, td {
+    font-size: 24px;
+}
+
+th, td {
+    width: 150px;
+    border: 2px solid yellow;
+}

@@ -18,4 +18,9 @@ module.exports = function(app) {
         console.log('Retrieving user profile, @routes.js pinging');
         Users.getUser(request, response);
     })
+    // Retrieve all users
+    app.get('/users', function(request, response) {
+        console.log('Retrieving all users, @routes.js pinging');
+        Users.getUsers(request, response);
+    })
 }
