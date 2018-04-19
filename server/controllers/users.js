@@ -23,7 +23,7 @@ module.exports = {
                             response.json(error);
                         } else {
                             console.log('Successful User Creation');
-                            User.find({"email": user.email}, function(error, result) {
+                            User.findOne({"email": user.email}, function(error, result) {
                                 if (error) {
                                     response.json(error);
                                 } else {

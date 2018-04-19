@@ -89,11 +89,13 @@ var login_registration_component_1 = __webpack_require__("./src/app/login-regist
 var home_component_1 = __webpack_require__("./src/app/home/home.component.ts");
 var profile_component_1 = __webpack_require__("./src/app/profile/profile.component.ts");
 var community_component_1 = __webpack_require__("./src/app/community/community.component.ts");
+var view_user_component_1 = __webpack_require__("./src/app/view-user/view-user.component.ts");
 var appRoutes = [
     { path: '', component: login_registration_component_1.LoginRegistrationComponent },
     { path: 'home/:alias', component: home_component_1.HomeComponent },
     { path: 'profile/:alias', component: profile_component_1.ProfileComponent },
-    { path: 'community/:alias', component: community_component_1.CommunityComponent }
+    { path: 'community/:alias', component: community_component_1.CommunityComponent },
+    { path: 'community/:alias/:user', component: view_user_component_1.ViewUserComponent }
 ];
 var AppModule = /** @class */ (function () {
     function AppModule() {
@@ -105,7 +107,8 @@ var AppModule = /** @class */ (function () {
                 login_registration_component_1.LoginRegistrationComponent,
                 home_component_1.HomeComponent,
                 profile_component_1.ProfileComponent,
-                community_component_1.CommunityComponent
+                community_component_1.CommunityComponent,
+                view_user_component_1.ViewUserComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule,
@@ -684,6 +687,89 @@ var UserService = /** @class */ (function () {
     return UserService;
 }());
 exports.UserService = UserService;
+
+
+/***/ }),
+
+/***/ "./src/app/view-user/view-user.component.css":
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/view-user/view-user.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class='container-fluid'>\n  <div class='row'>\n    <div class='col-md-12'>\n      <span id='homeLink' [routerLink]=\"['/home', user.alias]\"> Home </span>\n      <span id='communityLink' [routerLink]=\"['/community', user.alias]\"> My Community </span>\n    </div>\n  </div>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/view-user/view-user.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var user_service_1 = __webpack_require__("./src/app/services/user.service.ts");
+var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
+var ViewUserComponent = /** @class */ (function () {
+    function ViewUserComponent(_userService, route) {
+        this._userService = _userService;
+        this.route = route;
+    }
+    ViewUserComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.errorBoolean = false;
+        this.profileBoolean = false;
+        // Retrieve Signed in user's alias
+        this.route.params.subscribe(function (params) {
+            _this.userAlias = params['alias'];
+        });
+        // Retrieve favorites of user
+        this.route.params.subscribe(function (params) {
+            _this.user = params['user'];
+            _this.getUser(_this.user);
+        });
+    };
+    ViewUserComponent.prototype.getUser = function (user) {
+        var _this = this;
+        console.log(user);
+        var observable = this._userService.getUser({ alias: user });
+        observable.subscribe(function (data) {
+            if (data['success'] === false) {
+                _this.error = data['error'];
+                _this.errorBoolean = true;
+            }
+            else if (data['success'] === true && data['profile']) {
+                _this.user = data['profile'];
+                _this.profileBoolean = true;
+                console.log(_this.user);
+                console.log(_this.user.favorites.length);
+            }
+        });
+    };
+    ViewUserComponent = __decorate([
+        core_1.Component({
+            selector: 'app-view-user',
+            template: __webpack_require__("./src/app/view-user/view-user.component.html"),
+            styles: [__webpack_require__("./src/app/view-user/view-user.component.css")]
+        }),
+        __metadata("design:paramtypes", [user_service_1.UserService, router_1.ActivatedRoute])
+    ], ViewUserComponent);
+    return ViewUserComponent;
+}());
+exports.ViewUserComponent = ViewUserComponent;
 
 
 /***/ }),

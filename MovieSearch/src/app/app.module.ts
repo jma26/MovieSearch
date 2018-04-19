@@ -16,13 +16,15 @@ import { LoginRegistrationComponent } from './login-registration/login-registrat
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CommunityComponent } from './community/community.component';
+import { ViewUserComponent } from './view-user/view-user.component';
 
 
 const appRoutes: Routes = [
   { path: '', component: LoginRegistrationComponent },
   { path: 'home/:alias', component: HomeComponent },
   { path: 'profile/:alias', component: ProfileComponent },
-  { path: 'community/:alias', component: CommunityComponent }
+  { path: 'community/:alias', component: CommunityComponent },
+  { path: 'community/:alias/:user', component: ViewUserComponent }
 ]
 
 
@@ -32,7 +34,8 @@ const appRoutes: Routes = [
     LoginRegistrationComponent,
     HomeComponent,
     ProfileComponent,
-    CommunityComponent
+    CommunityComponent,
+    ViewUserComponent
   ],
   imports: [
     BrowserModule,
