@@ -478,14 +478,14 @@ exports.LoginRegistrationComponent = LoginRegistrationComponent;
 /***/ "./src/app/profile/profile.component.css":
 /***/ (function(module, exports) {
 
-module.exports = "#homeLink:hover, #communityLink:hover {\r\n    cursor: pointer;\r\n    color: yellow;\r\n}\r\n\r\n#homeLink, #communityLink {\r\n    font-size: 24px;\r\n}"
+module.exports = "#homeLink:hover, #communityLink:hover {\r\n    cursor: pointer;\r\n    color: yellow;\r\n}\r\n\r\n#homeLink, #communityLink {\r\n    font-size: 24px;\r\n}\r\n\r\n.emptyImage {\r\n    width: 300px;\r\n    height: 300px;\r\n    background-color: gray;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-align: center;\r\n        -ms-flex-align: center;\r\n            align-items: center;\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\r\n}\r\n\r\nimg {\r\n    width: 300px;\r\n    height: 300px;\r\n}\r\n\r\n.resultTitle, .emptyImage, form {\r\n    font-size: 21px;\r\n}"
 
 /***/ }),
 
 /***/ "./src/app/profile/profile.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class='container-fluid'>\n  <div class='row'>\n    <div class='col-md-12'>\n      <span id='homeLink' [routerLink]=\"['/home', user.alias]\"> Home </span>\n      <span id='communityLink' [routerLink]=\"['/community', user.alias]\"> My Community </span>\n    </div>\n  </div>\n  <div class='row'>\n    <div class='col-md-12' *ngIf='profileBoolean'>\n      <h1> Hello {{ user.fullName }}! </h1> \n      <h1> Email: {{ user.email }} </h1>\n      <h1> Alias: {{ user.alias }} </h1>\n      <h1 *ngIf='user.favorites.length == 0'> Favorites: Empty!! </h1>\n      <h1 *ngIf='!user.favorites.length == 0'> Favorites: {{ user.favorites }} </h1>\n  </div>\n</div>\n\n"
+module.exports = "<div class='container-fluid'>\n  <div class='row'>\n    <div class='col-md-12'>\n      <span id='homeLink' [routerLink]=\"['/home', user.alias]\"> Home </span>\n      <span id='communityLink' [routerLink]=\"['/community', user.alias]\"> My Community </span>\n    </div>\n  </div>\n  <div class='row'>\n    <div class='col-md-12' *ngIf='profileBoolean'>\n      <h1> Hello {{ user.fullName }}! </h1> \n      <h1> Your Email: {{ user.email }} </h1>\n      <h1> Your Alias: {{ user.alias }} </h1>\n      <h1 *ngIf='favorites.length == 0'> Favorites: Empty!! </h1>\n      <h1 *ngIf='favorites.length > 0'> Favorites: </h1>\n    </div>\n  </div>\n  <div class='row'>\n    <div class='col-md-3' *ngFor='let favorite of favorites'>\n      <p class='resultTitle'> {{ favorite.Title }} - {{ favorite.Year }} </p>\n      <p *ngIf='favorite.Poster === \"N/A\" else poster' class='emptyImage'> Image not available </p>\n      <ng-template #poster>\n        <img src='{{ favorite.Poster }}'>\n      </ng-template>\n    </div>\n  </div>\n</div>\n\n"
 
 /***/ }),
 
@@ -534,8 +534,7 @@ var ProfileComponent = /** @class */ (function () {
             else if (data['success'] === true && data['profile']) {
                 _this.user = data['profile'];
                 _this.profileBoolean = true;
-                console.log(_this.user);
-                console.log(_this.user.favorites.length);
+                _this.favorites = data['profile']['favorites'];
             }
         });
     };

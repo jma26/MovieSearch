@@ -8,10 +8,20 @@
   <div class='row'>
     <div class='col-md-12' *ngIf='profileBoolean'>
       <h1> Hello {{ user.fullName }}! </h1> 
-      <h1> Email: {{ user.email }} </h1>
-      <h1> Alias: {{ user.alias }} </h1>
-      <h1 *ngIf='user.favorites.length == 0'> Favorites: Empty!! </h1>
-      <h1 *ngIf='!user.favorites.length == 0'> Favorites: {{ user.favorites }} </h1>
+      <h1> Your Email: {{ user.email }} </h1>
+      <h1> Your Alias: {{ user.alias }} </h1>
+      <h1 *ngIf='favorites.length == 0'> Favorites: Empty!! </h1>
+      <h1 *ngIf='favorites.length > 0'> Favorites: </h1>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='col-md-3' *ngFor='let favorite of favorites'>
+      <p class='resultTitle'> {{ favorite.Title }} - {{ favorite.Year }} </p>
+      <p *ngIf='favorite.Poster === "N/A" else poster' class='emptyImage'> Image not available </p>
+      <ng-template #poster>
+        <img src='{{ favorite.Poster }}'>
+      </ng-template>
+    </div>
   </div>
 </div>
 

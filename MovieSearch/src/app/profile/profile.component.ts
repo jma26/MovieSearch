@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 export class ProfileComponent implements OnInit {
   userAlias: String;
   error: String;
+  favorites: String;
   errorBoolean: Boolean;
   profileBoolean: Boolean;
   user: any;
@@ -37,8 +38,7 @@ export class ProfileComponent implements OnInit {
       } else if (data['success'] === true && data['profile']) {
         this.user = data['profile'];
         this.profileBoolean = true;
-        console.log(this.user);
-        console.log(this.user.favorites.length)
+        this.favorites = data['profile']['favorites'];
       }
     })
   }
