@@ -42,6 +42,7 @@ img {
 .pageButtons {
     margin-left: 10px;
     margin-right: 10px;
+    padding: 4px;
 }
 /* End */
 
@@ -65,4 +66,20 @@ img {
     width: 50px;
 }
 
+/* Form */
+form {
+    margin-top: 16px;
+}
+
+label {
+    font-size: 24px;
+}
+
+input[type="text"] {
+    min-width: 60px;
+}
+
+button, input[type="text"] {
+    padding: 4px;
+}
 
