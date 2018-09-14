@@ -1,18 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from '../services/login.service';
-import { RegisterService } from '../services/register.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { LoginService } from '../services/login.service';
 
 @Component({
-  selector: 'app-login-registration',
-  templateUrl: './login-registration.component.html',
-  styleUrls: ['./login-registration.component.css']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
-export class LoginRegistrationComponent implements OnInit {
+export class LoginComponent implements OnInit {
   errors: any;
-
-  registration: FormGroup;
   userLogin: FormGroup;
 
   fullName: FormControl;
@@ -24,13 +21,13 @@ export class LoginRegistrationComponent implements OnInit {
   loginEmail: FormControl;
   loginPassword: FormControl;
 
-  constructor(private _registerService: RegisterService, private _loginService: LoginService, private router: Router) { }
+  constructor(private _loginService: LoginService, private router: Router) { }
 
   ngOnInit() {
     this.createFormControls();
     this.createForm();
   }
-  
+
   // Create FormControls as part of component properties
   createFormControls() {
     this.fullName = new FormControl('', Validators.required),
@@ -41,7 +38,6 @@ export class LoginRegistrationComponent implements OnInit {
 
     this.loginEmail = new FormControl('', Validators.required),
     this.loginPassword = new FormControl('', Validators.required)
-
   }
 
   // Bind FormControls to FormGroup model as properties
@@ -51,37 +47,6 @@ export class LoginRegistrationComponent implements OnInit {
       email: this.loginEmail,
       password: this.loginPassword
     })
-    // Registration model
-    this.registration = new FormGroup({
-      fullName: this.fullName,
-      email: this.email,
-      alias: this.alias,
-      password: this.password,
-      confirmPassword: this.confirmPassword
-    })
-  }
-
-  register() {
-    console.log('Registration at login-registration component pinging');
-    if (this.registration.invalid) {
-      console.log(this.registration.value);
-      console.log('Form unsuccessfully submitted- Invalid fields present');
-    // IF above is good, proceed to create register new user
-    } else {
-      console.log('Form successfully submitted- Valid fields present');
-      let observable = this._registerService.registerUser(this.registration.value);
-      observable.subscribe(data => {
-        console.log(data);
-        if (data['errors']) {
-          console.log(data['errors']);
-        } else {
-          // Return registered user's information & navigate to home component
-          console.log(data);
-          this.router.navigate(['/home', data['alias']]);
-          console.log('Successful creation');
-        }
-      })
-    }
   }
 
   login() {
@@ -104,4 +69,5 @@ export class LoginRegistrationComponent implements OnInit {
       })
     }
   }
+
 }

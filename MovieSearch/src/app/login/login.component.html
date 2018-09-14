@@ -1,0 +1,29 @@
+<div class='container'>
+  <div class='row justify-content-center'>
+    <div class='col'>
+      <h1 id='headline'> Login &amp; Registration </h1>
+    </div>
+  </div>
+  <div class='row justify-content-around'>
+    <div class='col-4'>
+      <!-- Login Form -->
+      <form (ngSubmit)='login()' id='loginForm' [formGroup]='userLogin'>
+        <div class='form-group'>
+          <label for='loginEmail'> Email Address </label>
+          <input type='text' id='loginEmail' formControlName='email' name='loginEmail'>
+        </div>
+        <div class='form-group'>
+          <label for='loginPassword'> Password </label>
+          <input type='password' id='loginPassword' formControlName='password' name='loginPassword'>
+          <!-- Form validation errors for password -->
+          <p class='error' *ngIf='userLogin.invalid'> Invalid fields present </p>
+          <!-- Display error if any from db -->
+          <p class='error' *ngIf='errors'> {{ errors }} </p>
+          <!-- End -->
+        </div>
+        <button> Login </button>
+      </form>
+      <!-- End of Login Form -->
+    </div>
+  </div>
+</div>

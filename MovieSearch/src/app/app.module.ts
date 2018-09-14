@@ -12,15 +12,17 @@ import { UserService } from './services/user.service';
 
 
 import { AppComponent } from './app.component';
-import { LoginRegistrationComponent } from './login-registration/login-registration.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CommunityComponent } from './community/community.component';
 import { ViewUserComponent } from './view-user/view-user.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 
 const appRoutes: Routes = [
-  { path: '', component: LoginRegistrationComponent },
+  { path: '', component: RegisterComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'home/:alias', component: HomeComponent },
   { path: 'profile/:alias', component: ProfileComponent },
   { path: 'community/:alias', component: CommunityComponent },
@@ -31,11 +33,12 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    LoginRegistrationComponent,
     HomeComponent,
     ProfileComponent,
     CommunityComponent,
-    ViewUserComponent
+    ViewUserComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
