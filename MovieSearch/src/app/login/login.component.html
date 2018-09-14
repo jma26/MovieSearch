@@ -1,27 +1,21 @@
 <div class='container'>
   <div class='row justify-content-center'>
-    <div class='col'>
-      <h1 id='headline'> Login &amp; Registration </h1>
-    </div>
-  </div>
-  <div class='row justify-content-around'>
-    <div class='col-4'>
+    <div class='col-6 login-component'>
+      <a class="register-link" [routerLink]="['/']"> Sign up</a>
       <!-- Login Form -->
       <form (ngSubmit)='login()' id='loginForm' [formGroup]='userLogin'>
         <div class='form-group'>
-          <label for='loginEmail'> Email Address </label>
-          <input type='text' id='loginEmail' formControlName='email' name='loginEmail'>
+          <input type='text' id='loginEmail' formControlName='email' name='loginEmail' placeholder="Email">
         </div>
         <div class='form-group'>
-          <label for='loginPassword'> Password </label>
-          <input type='password' id='loginPassword' formControlName='password' name='loginPassword'>
+          <input type='password' id='loginPassword' formControlName='password' name='loginPassword' placeholder="Password">
           <!-- Form validation errors for password -->
-          <p class='error' *ngIf='userLogin.invalid'> Invalid fields present </p>
           <!-- Display error if any from db -->
-          <p class='error' *ngIf='errors'> {{ errors }} </p>
+          <span class='error' *ngIf='errors'> {{ errors }} </span>
           <!-- End -->
         </div>
         <button> Login </button>
+        <span class='error' *ngIf='userLogin.invalid'> Invalid fields present </span>
       </form>
       <!-- End of Login Form -->
     </div>

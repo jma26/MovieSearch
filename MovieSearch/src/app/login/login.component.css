@@ -1,24 +1,16 @@
-#headline {
-  text-align: center;
-  margin-left: 110px;
-  font-size: 50px;
-  color: gray;
+input[type="text"], input[type="password"], button {
+  padding: 4px 0px 4px 4px;
+  width: 200px;
 }
 
-.form-group label {
-  width: 150px;
-  margin-right: 5px;
+.register-link {
+  display: block;
+  color: white;
+  text-align: right;
+  padding: 8px 0px 8px 0px;
 }
 
 .error {
   color: red;
-}
-
-button {
-  display: block;
-  width: 150px;
-}
-
-.col-3 {
-  border: 2px solid green;
+  padding: 8px;
 }
