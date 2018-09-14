@@ -1,52 +1,46 @@
 <div class="container">
-  <div class='col-4'>
-    <!-- Registration Form -->
-    <form (ngSubmit)='register()' id='registrationForm' [formGroup]='registration'>
-      <div class='form-group'>
-        <label for='alias'> Alias: </label>
-        <input type='text' formControlName='alias' name='alias' id='alias' placeholder='Your username'>
-        <!-- Form validation errors for username/alias -->
-        <p class='error' *ngIf='alias.invalid && alias.dirty'> Alias is required </p>
-        <!-- End -->
-      </div>
-      <div class='form-group'>
-        <label for='fullName'> Full Name: </label>
-        <input type='text' id='fullName' formControlName='fullName' name='fullName' placeholder='Your full name'>
-        <!-- Form validation errors for full name -->
-        <p class='error' *ngIf='fullName.invalid && fullName.dirty'> Full name is required </p>
-        <!-- End -->
-      </div>
-      <div class='form-group'>
-        <label for='email'> Email Address: </label>
-        <input type='text' id='email' formControlName='email' name='email' placeholder='Your email'>
-        <!-- Form validation errors for email -->
-        <p class='error' *ngIf='email.invalid && email.dirty'> Email is required </p>
-        <!-- End -->
-      </div>
-      <div class='form-group'>
-        <label for='password'> Password: </label>
-        <input type='password' id='password' formControlName='password' name='password' placeholder='Your password'>
-        <!-- Form validation errors for password -->
-        <div class='form-control-feedback' *ngIf='password.errors && (password.dirty || password.touched)'>
-          <p class='error' *ngIf='password.errors.required'> Password is required </p>
-          <p class='error' *ngIf='password.errors.minlength'> Password must be at least 5 characteres minimum </p>
+  <div class="row justify-content-center">
+    <div class='col-6 register-component'>
+      <!-- Registration Form -->
+      <form (ngSubmit)='register()' id='registrationForm' [formGroup]='registration'>
+        <div class='form-group'>
+          <input type='text' formControlName='alias' name='alias' id='alias' placeholder='Your username'>
+          <!-- Form validation errors for username/alias -->
+          <span class='error' *ngIf='alias.invalid && alias.dirty'> Alias is required </span>
+          <!-- End -->
         </div>
-        <!-- End -->
-      </div>
-      <div class='form-group'>
-        <label for='confirmPassword'> Confirm Password: </label>
-        <input type='password' id='confirmPassword' formControlName='confirmPassword' name='confirmPassword' placeholder='Confirm password'>
-        <!-- Form validation errors for confirming password -->
-        <div class='form-control-feedback' *ngIf='confirmPassword.errors && (confirmPassword.dirty || confirmPassword.touched)'>
-          <p class='error' *ngIf='confirmPassword.errors.required'> Password confirmation required </p>
+        <div class='form-group'>
+          <input type='text' id='fullName' formControlName='fullName' name='fullName' placeholder='Your full name'>
+          <!-- Form validation errors for full name -->
+          <span class='error' *ngIf='fullName.invalid && fullName.dirty'> Full name is required </span>
+          <!-- End -->
         </div>
-        <p class='error' *ngIf='password.value !== confirmPassword.value'> Password does not match </p>
-        <!-- End -->
-      </div>
-      <button type='submit'> Register </button>
-      <!-- Display invalid fields present  -->
-      <p class='error' *ngIf='registration.invalid || password.value !== confirmPassword.value'> Invalid fields present </p>
-    </form>
-    <!-- End of Registration Form -->
+        <div class='form-group'>
+          <input type='text' id='email' formControlName='email' name='email' placeholder='Your email'>
+          <!-- Form validation errors for email -->
+          <span class='error' *ngIf='email.invalid && email.dirty'> Email is required </span>
+          <!-- End -->
+        </div>
+        <div class='form-group'>
+          <input type='password' id='password' formControlName='password' name='password' placeholder='Your password'>
+          <!-- Form validation errors for password -->
+          <span class='form-control-feedback' *ngIf='password.errors && (password.dirty || password.touched)'>
+            <span class='error' *ngIf='password.errors.required'> Password is required </span>
+            <span class='error' *ngIf='password.errors.minlength'> Password must be at least 5 characters </span>
+          </span>
+          </div>
+          <!-- End -->
+        <div class='form-group'>
+          <input type='password' id='confirmPassword' formControlName='confirmPassword' name='confirmPassword' placeholder='Confirm password'>
+          <!-- Form validation errors for confirming password -->
+          <span class='error' *ngIf='password.value !== confirmPassword.value'> Password does not match </span>
+          <!-- End -->
+        </div>
+        <button type='submit'> Register </button>
+        <!-- Display invalid fields present  -->
+        <span class='error' *ngIf='registration.invalid || password.value !== confirmPassword.value'> Invalid fields present </span>
+      </form>
+      <!-- End of Registration Form -->
+    </div>
   </div>
 </div>

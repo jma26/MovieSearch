@@ -1,24 +1,8 @@
-#headline {
-  text-align: center;
-  margin-left: 110px;
-  font-size: 50px;
-  color: gray;
-}
-
-.form-group label {
-  width: 150px;
-  margin-right: 5px;
+input[type="text"], input[type="password"], button {
+  width: 200px;
 }
 
 .error {
   color: red;
-}
-
-button {
-  display: block;
-  width: 150px;
-}
-
-.col-3 {
-  border: 2px solid green;
+  padding: 8px;
 }
