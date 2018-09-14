@@ -1,5 +1,13 @@
 input[type="text"], input[type="password"], button {
+  padding: 4px 0px 4px 4px;
   width: 200px;
+}
+
+.login-link {
+  display: block;
+  color: white;
+  text-align: right;
+  padding: 8px 0px 8px 0px;
 }
 
 .error {
