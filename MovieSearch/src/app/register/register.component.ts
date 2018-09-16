@@ -51,6 +51,8 @@ export class RegisterComponent implements OnInit {
     if (this.registration.invalid) {
       console.log(this.registration.value);
       console.log('Form unsuccessfully submitted- Invalid fields present');
+    } else if (this.registration.get('password').value !== this.registration.get('confirmPassword').value) {
+      console.log('Passwords do not match!');
     // IF above is good, proceed to create register new user
     } else {
       console.log('Form successfully submitted- Valid fields present');
