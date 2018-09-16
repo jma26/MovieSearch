@@ -5,9 +5,9 @@
         <a class="register-link" [routerLink]="['/']"> Sign up</a>
       </p>
       <!-- Login Form -->
-      <form (ngSubmit)='login()' id='loginForm' [formGroup]='userLogin'>
+      <form (ngSubmit)='login()' autocomplete="off" id='loginForm' [formGroup]='userLogin'>
         <div class='form-group'>
-          <input type='text' id='loginEmail' formControlName='email' name='loginEmail' placeholder="Email">
+          <input type='text' id='loginEmail' formControlName='email' name='loginEmail' autocomplete="off | do-not-autocomplete" placeholder="Email">
         </div>
         <div class='form-group'>
           <input type='password' id='loginPassword' formControlName='password' name='loginPassword' placeholder="Password">
