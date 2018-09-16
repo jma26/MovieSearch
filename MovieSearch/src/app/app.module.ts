@@ -10,7 +10,6 @@ import { LoginService } from './services/login.service';
 import { RegisterService } from './services/register.service';
 import { UserService } from './services/user.service';
 
-
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -18,7 +17,6 @@ import { CommunityComponent } from './community/community.component';
 import { ViewUserComponent } from './view-user/view-user.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-
 
 const appRoutes: Routes = [
   { path: '', component: RegisterComponent },
@@ -28,7 +26,6 @@ const appRoutes: Routes = [
   { path: 'community/:alias', component: CommunityComponent },
   { path: 'community/:alias/:user', component: ViewUserComponent }
 ]
-
 
 @NgModule({
   declarations: [
