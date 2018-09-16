@@ -1,8 +1,9 @@
 <div class='container-fluid'>
   <div class='row'>
     <div class='col-12'>
-      <span id='profileLink' [routerLink]="['/profile', userAlias]"> My Profile </span>
-      <span id='communityLink' [routerLink]="['/community', userAlias]"> My Community </span>
+      <a class="nav-links" id='profileLink' [routerLink]="['/profile', userAlias]"> My Profile </a>
+      <a class="nav-links" id='communityLink' [routerLink]="['/community', userAlias]"> My Community </a>
+      <a id="logout-link" class="nav-links" [routerLink]="['/']"> Log out</a>
     </div>
   </div>
   <div class='row'>
@@ -31,9 +32,9 @@
   </div>
   <div class='row' *ngIf='!error'>
     <div class='col-md-3' *ngFor='let result of results'>
-      <p class='resultTitle'> 
+      <p class='resultTitle'>
         <span (click)='favorite(result)'><i class="fas fa-star"></i></span>
-        {{ result.Title }} - {{ result.Year }} 
+        {{ result.Title }} - {{ result.Year }}
       </p>
       <p *ngIf='result.Poster === "N/A" else poster' class='emptyImage'> Image not available </p>
       <ng-template #poster>

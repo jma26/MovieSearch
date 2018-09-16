@@ -12,7 +12,7 @@ img {
     height: 300px;
 }
 
-.resultTitle, .emptyImage, form {
+.resultTitle, .emptyImage {
     font-size: 21px;
 }
 
@@ -46,14 +46,20 @@ img {
 }
 /* End */
 
-/* Profile Link & Community Link */
-#profileLink:hover, #communityLink:hover {
-    cursor: pointer;
-    color: yellow;
+/* Profile, Community, and Logout links */
+.nav-links {
+  color: #FFF;
+  text-decoration: none;
 }
 
-#profileLink, #communityLink {
-    font-size: 24px;
+.nav-links:hover {
+    cursor: pointer;
+    color: yellow;
+    text-decoration: none;
+}
+
+#logout-link {
+  float: right;
 }
 /* End */
 
@@ -62,24 +68,12 @@ img {
     color: red;
 }
 
-#year {
-    width: 50px;
-}
-
 /* Form */
 form {
-    margin-top: 16px;
+  margin-top: 16px;
 }
 
-label {
-    font-size: 24px;
+input[type="text"], button {
+  min-width: 60px;
+  max-width: 200px;
 }
-
-input[type="text"] {
-    min-width: 60px;
-}
-
-button, input[type="text"] {
-    padding: 4px;
-}
-
