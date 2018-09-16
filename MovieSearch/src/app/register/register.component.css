@@ -3,12 +3,15 @@ input[type="text"], input[type="password"], button {
   width: 200px;
 }
 
-.login-link {
-  display: block;
-  color: white;
+/* Login link container */
+.register-component p {
   text-align: right;
-  padding: 8px 0px 8px 0px;
 }
+
+.login-link {
+  color: white;
+}
+ /* End */
 
 .error {
   color: red;

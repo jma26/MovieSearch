@@ -1,7 +1,9 @@
 <div class='container'>
   <div class='row justify-content-center'>
-    <div class='col-6 login-component'>
-      <a class="register-link" [routerLink]="['/']"> Sign up</a>
+    <div class='col-8 login-component'>
+      <p> Don't have an account yet?
+        <a class="register-link" [routerLink]="['/']"> Sign up</a>
+      </p>
       <!-- Login Form -->
       <form (ngSubmit)='login()' id='loginForm' [formGroup]='userLogin'>
         <div class='form-group'>
