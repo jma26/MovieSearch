@@ -1,31 +1,49 @@
-#homeLink:hover, #communityLink:hover {
-    cursor: pointer;
-    color: yellow;
+/* Home, community, & logout links */
+.nav-links:hover {
+  cursor: pointer;
+  color: yellow;
+  text-decoration: none;
 }
 
-#homeLink, #communityLink {
-    font-size: 24px;
+.nav-links {
+  color: #FFF;
+  text-decoration: none;
 }
+
+#logout-link {
+  float: right;
+}
+/* End */
+
+/* Profile info */
+.profile-info {
+  margin-top: 8px;
+}
+
+.profile-info p {
+  margin: 8px 0px !important;
+}
+/* End */
 
 .emptyImage {
-    width: 300px;
-    height: 300px;
-    background-color: gray;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 300px;
+  height: 300px;
+  background-color: gray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 img {
-    width: 300px;
-    height: 300px;
+  width: 300px;
+  height: 300px;
 }
 
 .resultTitle, .emptyImage, form {
-    font-size: 21px;
+  font-size: 21px;
 }
 
 .fa-trash-alt:hover {
-    cursor: pointer;
-    color: red;
+  cursor: pointer;
+  color: red;
 }

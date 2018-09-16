@@ -1,17 +1,21 @@
 <div class='container-fluid'>
   <div class='row'>
     <div class='col-md-12'>
-      <span id='homeLink' [routerLink]="['/home', user.alias]"> Home </span>
-      <span id='communityLink' [routerLink]="['/community', user.alias]"> My Community </span>
+      <a class="nav-links" id='homeLink' [routerLink]="['/home', user.alias]"> Home </a>
+      <a class="nav-links" id='communityLink' [routerLink]="['/community', user.alias]"> My Community </a>
+      <a id="logout-link" class="nav-links" [routerLink]="['/']"> Log out</a>
     </div>
   </div>
   <div class='row'>
-    <div class='col-md-12' *ngIf='profileBoolean'>
-      <h1> Hello {{ user.fullName }}! </h1> 
-      <h1> Your Email: {{ user.email }} </h1>
-      <h1> Your Alias: {{ user.alias }} </h1>
-      <h1 *ngIf='favorites.length == 0'> Favorites: Empty!! </h1>
-      <h1 *ngIf='favorites.length > 0'> Favorites: </h1>
+    <div class='col-md-12 profile-info' *ngIf='profileBoolean'>
+      <p> <i class="fas fa-user"></i> {{ user.fullName }} a.k.a {{ user.alias }} </p>
+      <p> <i class="far fa-envelope"></i> {{ user.email }} </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h2 class="text-center" *ngIf='favorites.length == 0'> Favorites </h2>
+      <h2 class="text-center" *ngIf='favorites.length > 0'> Favorites </h2>
     </div>
   </div>
   <div class='row'>
