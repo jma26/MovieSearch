@@ -19,7 +19,7 @@
     </div>
   </div>
   <div class='row'>
-    <div class='col-md-3' *ngFor='let favorite of favorites'>
+    <div class='col-sm-4' *ngFor='let favorite of favorites'>
       <p class='resultTitle'> <span (click)='removeFavorite(favorite)'> <i class="fas fa-trash-alt"></i></span> {{ favorite.Title }} - {{ favorite.Year }} </p>
       <p *ngIf='favorite.Poster === "N/A" else poster' class='emptyImage'> Image not available </p>
       <ng-template #poster>
