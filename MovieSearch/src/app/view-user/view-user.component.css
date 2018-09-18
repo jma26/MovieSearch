@@ -1,11 +1,29 @@
-#homeLink:hover, #communityLink:hover {
-    color: yellow;
-    cursor: pointer;
+/* Profile, Community, and Logout links */
+.nav-links {
+  color: #FFF;
+  text-decoration: none;
 }
 
-#homeLink, #communityLink {
-    font-size: 24px;
+.nav-links:hover {
+  cursor: pointer;
+  color: yellow;
+  text-decoration: none;
 }
+
+#logout-link {
+  float: right;
+}
+/* End */
+
+/* Profile info */
+.profile-info {
+  margin-top: 8px;
+}
+
+.profile-info p {
+  margin: 8px 0px !important;
+}
+/* End */
 
 .emptyImage {
     width: 300px;
@@ -14,11 +32,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-img {
-    width: 300px;
-    height: 300px;
 }
 
 .resultTitle, .emptyImage {
