@@ -1,8 +1,9 @@
 <div class='container-fluid'>
   <div class='row'>
     <div class='col-12'>
-      <span id='homeLink' [routerLink]="['/home', userAlias]"> Home </span>
-      <span id='profileLink' [routerLink]="['/profile', userAlias]"> My Profile </span>
+      <a class="nav-links" id='homeLink' [routerLink]="['/home', userAlias]"> Home </a>
+      <a class="nav-links" id='profileLink' [routerLink]="['/profile', userAlias]"> My Profile </a>
+      <a class="nav-links" id="logout-link" class="nav-links" [routerLink]="['/']"> Log out</a>
     </div>
   </div>
   <div class='row'>
@@ -15,7 +16,7 @@
         <tr *ngFor='let user of users'>
           <td class='tableData'> {{ user.alias }} </td>
           <td class='tableData'> {{ user.favorites.length }} </td>
-          <td class='tableData'> <a [routerLink]="['/community', userAlias, user.alias]"> View User </a> </td>
+          <td class='tableData'> <a class="nav-links" [routerLink]="['/community', userAlias, user.alias]"> View User </a> </td>
         </tr>
       </table>
     </div>

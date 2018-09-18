@@ -1,13 +1,26 @@
-#homeLink:hover, #profileLink:hover {
-    cursor: pointer;
-    color: yellow;
+/* Profile, Community, and Logout links */
+.nav-links {
+  color: #FFF;
+  text-decoration: none;
 }
 
-#homeLink, #profileLink, th, td {
-    font-size: 24px;
+.nav-links:hover {
+  cursor: pointer;
+  color: yellow;
+  text-decoration: none;
+}
+
+#logout-link {
+  float: right;
+}
+/* End */
+
+table {
+  margin-top: 16px;
 }
 
 th, td {
-    width: 150px;
-    border: 2px solid yellow;
+  border: 2px solid yellow;
+  padding: 4px;
+  width: 150px;
 }
